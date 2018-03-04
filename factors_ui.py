@@ -115,13 +115,14 @@ class FactorsDialog(cmn.Dialog):
     
     def __init__(self, is_selecting=False):
         cmn.Dialog.__init__(self, 'ESS', 'Factors', 'Выберите фактор' if is_selecting else 'Факторы')
+        self.is_selecting = is_selecting
         toolbar = cmn.ToolBar([
             cmn.Action(self, 'Добавить фактор (Ins)', 'icons/add.png', self.addFactor, 'Insert'),
             cmn.Action(self, 'Редактировать фактор (Enter)', 'icons/edit.png', self.editFactorAction),
             cmn.Action(self, 'Удалить фактор (Del)', 'icons/delete.png', self.removeFactor, 'Delete')
         ])
         self.list = QtGui.QListWidget(self)
-        self.list.itemActivated.connect(self.editFactor)
+        self.list.itemActivated.connect(self.onActivateItem)
         self.loadList()
         layout = cmn.VBox([toolbar, self.list])
         self.setDialogLayout(layout, self.doSelect, close_btn=not is_selecting, autodefault=False)
@@ -152,6 +153,12 @@ class FactorsDialog(cmn.Dialog):
         if d.exec_():
             self.loadList(d.new_obj)
     
+    def onActivateItem(self, item):
+        if self.is_selecting:
+            self.doSelect()
+        else:
+            self.editFactor(item)
+            
     def editFactorAction(self):
         cur = self.list.currentItem()
         if cur:

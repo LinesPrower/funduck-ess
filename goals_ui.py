@@ -57,13 +57,14 @@ class GoalsDialog(cmn.Dialog):
     
     def __init__(self, is_selecting=False):
         cmn.Dialog.__init__(self, 'ESS', 'Goals', 'Выбор цели' if is_selecting else 'Цели')
+        self.is_selecting = is_selecting
         toolbar = cmn.ToolBar([
             cmn.Action(self, 'Добавить цель (Ins)', 'icons/add.png', self.addGoal, 'Insert'),
             cmn.Action(self, 'Редактировать цель (Enter)', 'icons/edit.png', self.editGoalAction),
             cmn.Action(self, 'Удалить цель (Del)', 'icons/delete.png', self.removeGoal, 'Delete')
         ])
         self.list = QtGui.QListWidget(self)
-        self.list.itemActivated.connect(self.editGoal)
+        self.list.itemActivated.connect(self.onActivateItem)
         self.loadList()
         layout = cmn.VBox([toolbar, self.list])
         self.setDialogLayout(layout, self.doSelect, close_btn=not is_selecting, autodefault=False)
@@ -93,6 +94,12 @@ class GoalsDialog(cmn.Dialog):
         d = GoalDialog()
         if d.exec_():
             self.loadList(d.new_obj)
+    
+    def onActivateItem(self, item):
+        if self.is_selecting:
+            self.doSelect()
+        else:
+            self.editGoal(item)
     
     def editGoalAction(self):
         cur = self.list.currentItem()
