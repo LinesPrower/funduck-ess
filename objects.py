@@ -195,6 +195,14 @@ class State:
         self.saved = True
         self.filename = filename
         self.getRoot().selected = True
+        
+    def getExtents(self):
+        extents = [0, 0]
+        def f(node):
+            extents[0] = max(extents[0], node.x + node.width)
+            extents[1] = max(extents[1], node.y + node.height)
+        self.getRoot().traverse(f)
+        return (extents[0] + ESNode.kDiagramMargin, extents[1] + ESNode.kDiagramMargin)
             
         
 gstate = State()
@@ -314,6 +322,7 @@ class ESNode(ESObject):
     kVerticalMargin = 5
     kHorizontalMargin = 5
     kChoicesSpacing = 6
+    kDiagramMargin = 10
 
     # arguments: upper left corner of this subtree
     # returns: height of this subtree
@@ -358,11 +367,11 @@ class ESNode(ESObject):
                 return QtGui.QColor(128, 128, 255)
         return QtGui.QColor(255, 255, 0)
 
-    def render(self, p):
+    def render(self, p, ignore_selection=False):
         #p = QtGui.QPainter()
         p.setBrush(self.getColor())
         
-        if self.selected:
+        if self.selected and not ignore_selection:
             pen = QtGui.QPen(QtGui.QColor("blue"))
             pen.setWidth(3)
             p.setPen(pen)
@@ -381,7 +390,7 @@ class ESNode(ESObject):
         start_idx = 1 if self.content and self.content.getType() == kFactor else 0
         for i, c in enumerate(self.children, start_idx):
             p.drawLine(self.getExitPoint(i), c.getEntryPoint())
-            c.render(p)
+            c.render(p, ignore_selection)
 
 objTypes[kNode] = ESNode
 

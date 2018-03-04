@@ -116,10 +116,13 @@ class MainW(QtGui.QMainWindow):
         self.act_open_es = cmn.Action(self, 'Открыть...', 'icons/open.png', self.doOpen, 'Ctrl+O')
         self.act_save_es = cmn.Action(self, 'Сохранить', 'icons/save.png', self.doSave, 'Ctrl+S')
         self.act_save_es_as = cmn.Action(self, 'Сохранить как...', '', self.doSaveAs)
+        self.act_export_png = cmn.Action(self, 'Экспорт дерева решений в PNG...', '', self.doExportPNG)
         fileMenu.addAction(self.act_new_es)
         fileMenu.addAction(self.act_open_es)
         fileMenu.addAction(self.act_save_es)
         fileMenu.addAction(self.act_save_es_as)
+        fileMenu.addSeparator()
+        fileMenu.addAction(self.act_export_png)
         fileMenu.addSeparator()
         fileMenu.addAction(cmn.Action(self, 'Выход', '', self.exitApp))
         
@@ -160,7 +163,7 @@ class MainW(QtGui.QMainWindow):
         self.setWindowTitle(gstate.getName() + ' - ' + kProgramName)
         self.act_undo.setEnabled(gstate.canUndo())
         self.act_redo.setEnabled(gstate.canRedo())
-        gstate.getRoot().computeLayout(10, 10)
+        gstate.getRoot().computeLayout(ESNode.kDiagramMargin, ESNode.kDiagramMargin)
         self.pbox.update()
         
     def doNew(self):
@@ -204,7 +207,18 @@ class MainW(QtGui.QMainWindow):
             self.doSaveRaw(fname)
             return True
         return False
-            
+    
+    def doExportPNG(self):
+        fname = cmn.getOpenFileName(self, 'es', 'Экспорт в PNG', 'PNG Images (*.png)', True)
+        if not fname:
+            return
+        w, h = gstate.getExtents()
+        img = QtGui.QImage(w, h, QtGui.QImage.Format_RGB32)
+        img.fill(QtGui.QColor("white"))
+        with QtGui.QPainter(img) as p:
+            p.setFont(ESNode.font)
+            gstate.getRoot().render(p, True)
+        img.save(fname, 'PNG')
                 
     def doGoals(self):
         GoalsDialog().exec_()
