@@ -25,7 +25,7 @@ class DecisionTreeWidget(QtGui.QWidget):
         x = ev.x()
         y = ev.y()
         def set_sel(node):
-            node.selected = node.x <= x <= node.x + node.width and node.y <= y <= node.y + node.y + node.height
+            node.selected = node.x <= x <= node.x + node.width and node.y <= y <= node.y + node.height
 
         gstate.getRoot().traverse(set_sel)
         self.update()
