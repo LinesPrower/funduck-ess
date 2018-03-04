@@ -115,9 +115,11 @@ class MainW(QtGui.QMainWindow):
         self.act_new_es = cmn.Action(self, 'Новая экспертная система', 'icons/new.png', self.doNew, 'Ctrl+N')
         self.act_open_es = cmn.Action(self, 'Открыть...', 'icons/open.png', self.doOpen, 'Ctrl+O')
         self.act_save_es = cmn.Action(self, 'Сохранить', 'icons/save.png', self.doSave, 'Ctrl+S')
+        self.act_save_es_as = cmn.Action(self, 'Сохранить как...', '', self.doSaveAs)
         fileMenu.addAction(self.act_new_es)
         fileMenu.addAction(self.act_open_es)
         fileMenu.addAction(self.act_save_es)
+        fileMenu.addAction(self.act_save_es_as)
         fileMenu.addSeparator()
         fileMenu.addAction(cmn.Action(self, 'Выход', '', self.exitApp))
         
@@ -138,12 +140,20 @@ class MainW(QtGui.QMainWindow):
         
         self.show()
     
-    def checkExit(self):
-        # todo:
-        return True
+    def closingCheck(self):
+        if gstate.saved:
+            return True
+        ans = QtGui.QMessageBox.question(self, kProgramName, 'Сохранить изменения в экспертной системе "%s"?' % gstate.getName(), 
+                                         QtGui.QMessageBox.Yes | QtGui.QMessageBox.No | QtGui.QMessageBox.Cancel, 
+                                         QtGui.QMessageBox.Yes)
+        if ans == QtGui.QMessageBox.No:
+            return True
+        if ans == QtGui.QMessageBox.Cancel:
+            return False
+        return self.doSave()
     
     def exitApp(self):
-        if self.checkExit():
+        if self.closingCheck():
             QtGui.qApp.quit()
             
     def updateUI(self):
@@ -154,31 +164,47 @@ class MainW(QtGui.QMainWindow):
         self.pbox.update()
         
     def doNew(self):
+        if not self.closingCheck():
+            return
         gstate.resetState()
         self.updateUI()
 
     def doOpenRaw(self, fname):
-        #try:
-        gstate.loadFromFile(fname)
-        #except:
-        #    QtGui.QMessageBox.critical(self, kProgramName, 'Ошибка открытия файла "%s"' % fname)
-        #    gstate.resetState()
-        #    raise
+        try:
+            gstate.loadFromFile(fname)
+        except:
+            QtGui.QMessageBox.critical(self, kProgramName, 'Ошибка открытия файла "%s"' % fname)
+            gstate.resetState()
+            raise
         self.updateUI()
         
     def doOpen(self):
+        if not self.closingCheck():
+            return
         fname = cmn.getOpenFileName(self, 'es', 'Открыть файл', 'Expert System Files (*.es)')
         if fname:
             self.doOpenRaw(fname)
+    
+    def doSaveRaw(self, fname):
+        try:
+            gstate.saveToFile(fname)
+        except:
+            QtGui.QMessageBox.critical(self, kProgramName, 'Ошибка записи в файл "%s"' % fname)
+            raise
                 
     def doSave(self):
+        if gstate.filename:
+            self.doSaveRaw(gstate.filename)
+            return True
+        return self.doSaveAs()
+        
+    def doSaveAs(self):
         fname = cmn.getOpenFileName(self, 'es', 'Сохранить в файл', 'Expert System Files (*.es)', True)
         if fname:
-            #try:
-                gstate.saveToFile(fname)
-            #except:
-            #    QtGui.QMessageBox.critical(self, kProgramName, 'Ошибка записи в файл "%s"' % fname)
-            #    raise
+            self.doSaveRaw(fname)
+            return True
+        return False
+            
                 
     def doGoals(self):
         GoalsDialog().exec_()
@@ -187,6 +213,9 @@ class MainW(QtGui.QMainWindow):
         FactorsDialog().exec_()        
 
     def closeEvent(self, event):
+        if not self.closingCheck():
+            event.ignore()
+            return
         s = QtCore.QSettings('PlatBox', 'Hal0')
         s.setValue("mainwnd/geometry", self.saveGeometry())
         s.setValue('mainwnd/dockstate', self.saveState(0))
