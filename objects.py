@@ -57,7 +57,7 @@ class State:
             
     def wrapInTransaction(self, f):
         if self.in_transaction:
-            return f
+            return f()
         else:
             self.beginTransaction()
             try:
@@ -332,7 +332,7 @@ class ESNode(ESObject):
         return QtCore.QPointF(self.x, self.y + self.kVerticalMargin + self.lineheight / 2)
 
     def getExitPoint(self, idx):
-        return QtCore.QPointF(self.x + self.width, self.kVerticalMargin + self.lineheight * (idx + 0.5) + self.kChoicesSpacing * idx)
+        return QtCore.QPointF(self.x + self.width, self.y + self.kVerticalMargin + self.lineheight * (idx + 0.5) + self.kChoicesSpacing * idx)
 
     def computeDimensions(self):
         text = self.getText()
