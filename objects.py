@@ -17,6 +17,8 @@ def getId(obj):
 class State:
     objMap = {} # ident -> ESObject
     typedMaps = {} # type -> (ident -> ESObject)
+    undo_stack = []
+    redo_stack = []
     next_id = 0
     saved = True
     filename = None
@@ -52,30 +54,69 @@ class State:
     def callUpdateHandler(self):
         if self.on_update != None:
             self.on_update()
+            
+    def wrapInTransaction(self, f):
+        if self.in_transaction:
+            return f
+        else:
+            self.beginTransaction()
+            try:
+                return f()
+            finally:
+                self.endTransaction()
 
     def addNewObject(self, obj):
-        self.saved = False
-        self.next_id += 1
-        obj.ident = self.next_id
-        self.addObjectRaw(obj)
-        if not self.in_transaction:
-            self.callUpdateHandler()
-        return obj
+        def f():
+            self.saved = False
+            self.next_id += 1
+            obj.ident = self.next_id
+            self.addObjectRaw(obj)
+            return obj
+        
+        return self.wrapInTransaction(f)
         
     def modifyObject(self, obj):
-        self.saved = False
-        if not self.in_transaction:
-            self.callUpdateHandler()
+        def f():
+            self.saved = False
+        
+        return self.wrapInTransaction(f)
     
     def deleteObject(self, obj):
+        def f():
+            self.saved = False
+            del self.getMap(obj.getType())[obj.ident]
+            del self.objMap[obj.ident]
+        
+        return self.wrapInTransaction(f)
+    
+    def canUndo(self):
+        return bool(self.undo_stack)
+    
+    def canRedo(self):
+        return bool(self.redo_stack)
+    
+    def undo(self):
+        assert(not self.in_transaction)
+        if not self.canUndo():
+            return
+        self.redo_stack.append(self.getSnapshot())
+        self.setSnapshot(self.undo_stack.pop())
         self.saved = False
-        del self.getMap(obj.getType())[obj.ident]
-        del self.objMap[obj.ident]
-        if not self.in_transaction:
-            self.callUpdateHandler()
+        self.callUpdateHandler()
+        
+    def redo(self):
+        assert(not self.in_transaction)
+        if not self.canRedo():
+            return
+        self.undo_stack.append(self.getSnapshot())
+        self.setSnapshot(self.redo_stack.pop())
+        self.saved = False
+        self.callUpdateHandler()
     
     def beginTransaction(self, name = 'undefined_op'):
         assert(not self.in_transaction)
+        self.undo_stack.append(self.getSnapshot())
+        self.redo_stack.clear()
         self.in_transaction = True
     
     def endTransaction(self):
@@ -103,6 +144,8 @@ class State:
         assert(not self.in_transaction)
         self.objMap.clear()
         self.typedMaps.clear()
+        self.undo_stack.clear()
+        self.redo_stack.clear()
         self.saved = True
         self.filename = None
         self.next_id = 0
@@ -110,8 +153,7 @@ class State:
         root.selected = True
         self.addObjectRaw(root)
     
-    def saveToFile(self, filename):
-        assert(not self.in_transaction)
+    def getSnapshot(self):
         data = []
         saved = set()
         def f(obj):
@@ -121,16 +163,18 @@ class State:
             data.append(obj.serialize(f))
         for obj in self.objMap.values():
             f(obj)
-        data = { 'objects' : data, 'version' : 1}
+        return json.dumps({ 'objects' : data, 'version' : 1})
+    
+    def saveToFile(self, filename):
+        assert(not self.in_transaction)
+        data = self.getSnapshot()
         with io.open(filename, 'wt', encoding='utf8') as f:
-            f.write(json.dumps(data))
+            f.write(data)
         self.filename = filename
         self.saved = True
-        
-    def loadFromFile(self, filename):
-        assert(not self.in_transaction)
-        with io.open(filename, encoding='utf8') as f:
-            data = json.loads(f.read())
+    
+    def setSnapshot(self, data):
+        data = json.loads(data)
         self.objMap.clear()
         self.typedMaps.clear()
         self.next_id = 0
@@ -139,6 +183,15 @@ class State:
             obj.deserialize(item)
             self.addObjectRaw(obj)
             self.next_id = max(self.next_id, obj.ident)
+        
+        
+    def loadFromFile(self, filename):
+        assert(not self.in_transaction)
+        with io.open(filename, encoding='utf8') as f:
+            data = f.read()
+        self.setSnapshot(data)
+        self.undo_stack.clear()
+        self.redo_stack.clear()
         self.saved = True
         self.filename = filename
         self.getRoot().selected = True
@@ -159,18 +212,6 @@ class ESObject:
     def deserialize(self, data):
         self.ident = data['id']
 
-'''
-def createSampleTree():
-    f1 = ESFactor(1, 'Want something sweet?')
-    g1 = ESGoal(2, 'Ice cream')
-    g2 = ESGoal(3, 'Taco')
-    n1 = ESNode(4, f1)
-    n2 = ESNode(5, g1)
-    n3 = ESNode(6, g2)
-    n1.children.append(n2)
-    n1.children.append(n3)
-    return n1
-'''
 
 class ESGoal(ESObject):
     def __init__(self, ident = None, name = 'Undefined', descr = 'Undefined'):

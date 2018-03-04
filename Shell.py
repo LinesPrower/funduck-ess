@@ -122,8 +122,13 @@ class MainW(QtGui.QMainWindow):
         fileMenu.addAction(cmn.Action(self, 'Выход', '', self.exitApp))
         
         editMenu = menubar.addMenu('Редактирование')
+        self.act_undo = cmn.Action(self, 'Отменить', 'icons/undo.png', gstate.undo, 'Ctrl+Z')
+        self.act_redo = cmn.Action(self, 'Повторить', 'icons/redo.png', gstate.redo, 'Ctrl+Shift+Z')
         self.act_goals = cmn.Action(self, 'Цели...', '', self.doGoals, 'Ctrl+G')
         self.act_factors = cmn.Action(self, 'Факторы...', '', self.doFactors, 'Ctrl+F')
+        editMenu.addAction(self.act_undo)
+        editMenu.addAction(self.act_redo)
+        editMenu.addSeparator()
         editMenu.addAction(self.act_goals)
         editMenu.addAction(self.act_factors)
         
@@ -143,6 +148,8 @@ class MainW(QtGui.QMainWindow):
             
     def updateUI(self):
         self.setWindowTitle(gstate.getName() + ' - ' + kProgramName)
+        self.act_undo.setEnabled(gstate.canUndo())
+        self.act_redo.setEnabled(gstate.canRedo())
         gstate.getRoot().computeLayout(10, 10)
         self.pbox.update()
         
