@@ -6,6 +6,7 @@ from objects import gstate, kProgramName, ESNode
 from goals_ui import GoalsDialog
 from factors_ui import FactorsDialog
 import goals_ui
+from checker import CheckResultsPanel
 
 class DecisionTreeWidget(QtGui.QWidget):
 
@@ -95,8 +96,8 @@ class MainW(QtGui.QMainWindow):
         self.setWindowIcon(cmn.GetIcon('icons/duckling.png'))
         
         
-        #self.battles_list = BattlesPanel(self)
-        #self.addDockWidget(QtCore.Qt.RightDockWidgetArea, self.battles_list)
+        self.check_results = CheckResultsPanel(self)
+        self.addDockWidget(QtCore.Qt.BottomDockWidgetArea, self.check_results)
 
         s = QtCore.QSettings('PlatBox', 'Hal0')
         t = s.value("mainwnd/geometry")
@@ -117,12 +118,17 @@ class MainW(QtGui.QMainWindow):
         self.act_save_es = cmn.Action(self, 'Сохранить', 'icons/save.png', self.doSave, 'Ctrl+S')
         self.act_save_es_as = cmn.Action(self, 'Сохранить как...', '', self.doSaveAs)
         self.act_export_png = cmn.Action(self, 'Экспорт дерева решений в PNG...', '', self.doExportPNG)
+        self.act_check_es = cmn.Action(self, 'Проверить систему', '', self.doCheckES, 'F8')
+        self.act_run_es = cmn.Action(self, 'Запустить систему', 'icons/run.png', self.doRunES, 'F9')
         fileMenu.addAction(self.act_new_es)
         fileMenu.addAction(self.act_open_es)
         fileMenu.addAction(self.act_save_es)
         fileMenu.addAction(self.act_save_es_as)
         fileMenu.addSeparator()
         fileMenu.addAction(self.act_export_png)
+        fileMenu.addSeparator()
+        fileMenu.addAction(self.act_check_es)
+        fileMenu.addAction(self.act_run_es)
         fileMenu.addSeparator()
         fileMenu.addAction(cmn.Action(self, 'Выход', '', self.exitApp))
         
@@ -166,11 +172,15 @@ class MainW(QtGui.QMainWindow):
         gstate.getRoot().computeLayout(ESNode.kDiagramMargin, ESNode.kDiagramMargin)
         self.pbox.update()
         
+    def resetUI(self):
+        self.check_results.reset()
+        self.updateUI()
+        
     def doNew(self):
         if not self.closingCheck():
             return
         gstate.resetState()
-        self.updateUI()
+        self.resetUI()
 
     def doOpenRaw(self, fname):
         try:
@@ -179,7 +189,7 @@ class MainW(QtGui.QMainWindow):
             QtGui.QMessageBox.critical(self, kProgramName, 'Ошибка открытия файла "%s"' % fname)
             gstate.resetState()
             raise
-        self.updateUI()
+        self.resetUI()
         
     def doOpen(self):
         if not self.closingCheck():
@@ -219,6 +229,12 @@ class MainW(QtGui.QMainWindow):
             p.setFont(ESNode.font)
             gstate.getRoot().render(p, True)
         img.save(fname, 'PNG')
+        
+    def doCheckES(self):
+        self.check_results.doCheck()
+        
+    def doRunES(self):
+        pass
                 
     def doGoals(self):
         GoalsDialog().exec_()
