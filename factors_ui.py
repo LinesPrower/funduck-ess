@@ -12,12 +12,12 @@ import sys
 # returns None, if the name is ok
 def checkFactorName(name, allow_same=False):
     if not name:
-        return 'Имя фактора не может быть пустым'
+        return 'Название фактора не может быть пустым'
     if allow_same:
         return
     for g in gstate.factorsMap().values():
         if g.name == name:
-            return 'Фактор с таким именем уже существует'
+            return 'Фактор с таким названием уже существует'
 
 class FactorDialog(cmn.Dialog):
     
@@ -40,8 +40,8 @@ class FactorDialog(cmn.Dialog):
         
         self.new_obj = None
         layout = cmn.VBox([
-            cmn.Table([('Имя', self.edit_name),
-                       ('Тип', cmn.VBox([self.rb_binary, self.rb_text]) )]),
+            cmn.Table([('Название', self.edit_name),
+                       ('Тип фактора', cmn.VBox([self.rb_binary, self.rb_text]) )]),
             self.edit_choices
         ])
         self.setDialogLayout(layout, self.doOk)

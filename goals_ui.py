@@ -11,12 +11,12 @@ import sys
 # returns None, if the name is ok
 def checkGoalName(name, allow_same=False):
     if not name:
-        return 'Имя цели не может быть пустым'
+        return 'Название цели не может быть пустым'
     if allow_same:
         return
     for g in gstate.goalsMap().values():
         if g.name == name:
-            return 'Цель с таким именем уже существует'
+            return 'Цель с таким названием уже существует'
 
 class GoalDialog(cmn.Dialog):
     
@@ -26,10 +26,9 @@ class GoalDialog(cmn.Dialog):
         self.edit_name = QtGui.QLineEdit()
         self.edit_descr = QtGui.QPlainTextEdit()
         self.new_obj = None
-        layout = cmn.VBox([
-            cmn.Table([('Имя', self.edit_name)]),
-            QtGui.QLabel('Описание'),
-            self.edit_descr
+        layout = cmn.Table([
+            ('Название', self.edit_name),
+            ('Описание', self.edit_descr) 
         ])
         self.setDialogLayout(layout, self.doOk)
         if obj != None:
