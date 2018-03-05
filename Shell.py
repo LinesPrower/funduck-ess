@@ -7,6 +7,7 @@ from goals_ui import GoalsDialog
 from factors_ui import FactorsDialog
 import goals_ui
 from checker import CheckResultsPanel
+from description_ui import DescriptionDialog
 
 class DecisionTreeWidget(QtGui.QWidget):
 
@@ -134,11 +135,14 @@ class MainW(QtGui.QMainWindow):
         self.act_redo = cmn.Action(self, 'Повторить', 'icons/redo.png', gstate.redo, 'Ctrl+Shift+Z')
         self.act_goals = cmn.Action(self, 'Цели...', '', self.doGoals, 'Ctrl+G')
         self.act_factors = cmn.Action(self, 'Факторы...', '', self.doFactors, 'Ctrl+F')
+        self.act_es_info = cmn.Action(self, 'Описание экспертной системы...', '', self.doEditDescription, 'Ctrl+D')
         editMenu.addAction(self.act_undo)
         editMenu.addAction(self.act_redo)
         editMenu.addSeparator()
         editMenu.addAction(self.act_goals)
         editMenu.addAction(self.act_factors)
+        editMenu.addSeparator()
+        editMenu.addAction(self.act_es_info)
         
         gstate.on_update = self.updateUI
         self.doNew()
@@ -229,6 +233,9 @@ class MainW(QtGui.QMainWindow):
         
     def doCheckES(self):
         self.check_results.doCheck()
+        
+    def doEditDescription(self):
+        DescriptionDialog().exec_()
         
     def doRunES(self):
         pass

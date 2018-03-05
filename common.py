@@ -449,7 +449,7 @@ class Table(QtGui.QGridLayout):
             lbl.setMinimumHeight(20)
             self.addWidget(lbl, i, 0, QtCore.Qt.AlignTop)
             self.addWidget(ensureWidget(item), i, 1)
-            self.setAlignment(lbl, QtCore.Qt.AlignLeft | QtCore.Qt.AlignVCenter)
+            self.setAlignment(lbl, QtCore.Qt.AlignLeft | QtCore.Qt.AlignTop)
 
 class ComboBox(QtGui.QComboBox):
     

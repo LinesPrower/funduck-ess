@@ -2,6 +2,8 @@ from PyQt4 import QtCore, QtGui
 import os, io, json
 
 kProgramName = 'Funduck ES'
+kDefaultESName = 'Экспертная система'
+kDefaultESDescription = ''
 
 kGoal = 1
 kFactor = 2
@@ -24,6 +26,9 @@ class State:
     filename = None
     in_transaction = False
     on_update = None
+    
+    es_name = ''
+    es_descr = ''
     
     def getName(self):
         if self.filename != None:
@@ -80,6 +85,9 @@ class State:
             self.saved = False
         
         return self.wrapInTransaction(f)
+    
+    def modifyMetadata(self):
+        self.modifyObject(None)
     
     def deleteObject(self, obj):
         def f():
@@ -155,6 +163,8 @@ class State:
         self.saved = True
         self.filename = None
         self.next_id = 0
+        self.es_name = kDefaultESName
+        self.es_descr = kDefaultESDescription
         root = ESNode(0)
         root.selected = True
         self.addObjectRaw(root)
@@ -169,7 +179,7 @@ class State:
             data.append(obj.serialize(f))
         for obj in self.objMap.values():
             f(obj)
-        return json.dumps({ 'objects' : data, 'version' : 1})
+        return json.dumps({ 'objects' : data, 'version' : 2, 'es_name': self.es_name, 'es_descr': self.es_descr})
     
     def saveToFile(self, filename):
         assert(not self.in_transaction)
@@ -184,6 +194,12 @@ class State:
         self.objMap.clear()
         self.typedMaps.clear()
         self.next_id = 0
+        if data['version'] > 1:
+            self.es_name = data['es_name']
+            self.es_descr = data['es_descr']
+        else:
+            self.es_name = kDefaultESName
+            self.es_descr = kDefaultESDescription
         for item in data['objects']:
             obj = objTypes[item['ty']]()
             obj.deserialize(item)
