@@ -1,7 +1,7 @@
 from PyQt4 import QtCore, QtGui
 import os, io, json
 
-kProgramName = 'Funduck ES'
+kProgramName = 'Funduck ESS'
 kDefaultESName = 'Экспертная система'
 kDefaultESDescription = ''
 

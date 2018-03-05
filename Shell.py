@@ -8,6 +8,7 @@ from factors_ui import FactorsDialog
 import goals_ui
 from checker import CheckResultsPanel
 from description_ui import DescriptionDialog
+from about_ui import AboutDialog
 
 class DecisionTreeWidget(QtGui.QWidget):
 
@@ -118,6 +119,8 @@ class MainW(QtGui.QMainWindow):
         self.act_export_png = cmn.Action(self, 'Экспорт дерева решений в PNG...', '', self.doExportPNG)
         self.act_check_es = cmn.Action(self, 'Проверить систему', '', self.doCheckES, 'F8')
         self.act_run_es = cmn.Action(self, 'Запустить систему', 'icons/run.png', self.doRunES, 'F9')
+        self.act_about = cmn.Action(self, 'О программе...', 'icons/info.png', lambda: AboutDialog().exec_())
+        
         fileMenu.addAction(self.act_new_es)
         fileMenu.addAction(self.act_open_es)
         fileMenu.addAction(self.act_save_es)
@@ -143,6 +146,9 @@ class MainW(QtGui.QMainWindow):
         editMenu.addAction(self.act_factors)
         editMenu.addSeparator()
         editMenu.addAction(self.act_es_info)
+        
+        helpMenu = menubar.addMenu('Справка')
+        helpMenu.addAction(self.act_about)
         
         gstate.on_update = self.updateUI
         self.doNew()
