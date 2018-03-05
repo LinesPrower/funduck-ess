@@ -89,6 +89,12 @@ class State:
         
         return self.wrapInTransaction(f)
     
+    def deleteNode(self, node):
+        def f():    
+            node.traverse(lambda obj: self.deleteObject(obj))
+            
+        return self.wrapInTransaction(f)
+    
     def canUndo(self):
         return bool(self.undo_stack)
     

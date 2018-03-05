@@ -6,7 +6,7 @@ Created on Mar 4, 2018
 
 import common as cmn
 from PyQt4 import QtCore, QtGui
-from objects import gstate, ESFactor, kProgramName
+from objects import gstate, ESFactor, kProgramName, ESNode
 import sys
 
 # returns None, if the name is ok
@@ -103,9 +103,19 @@ class FactorDialog(cmn.Dialog):
                 factor.name = name
                 
             factor.is_binary = is_binary
-            factor.choices = choices
             
-            # todo: update the tree!
+            def update_node(node):
+                if node.content != factor:
+                    return
+                gstate.modifyObject(node)
+                while len(node.children) < len(choices):
+                    node.children.append(gstate.addNewObject(ESNode()))
+                while len(choices) < len(node.children):
+                    gstate.deleteNode(node.children.pop())
+                    
+            if len(factor.choices) != len(choices):
+                gstate.getRoot().traverse(update_node)
+            factor.choices = choices
                 
         finally:
             gstate.endTransaction()        

@@ -30,15 +30,12 @@ class DecisionTreeWidget(QtGui.QWidget):
         gstate.getRoot().traverse(set_sel)
         self.update()
     
-    def deleteNode(self, node):    
-        node.traverse(lambda obj: gstate.deleteObject(obj))
-    
     def clearNode(self, node):
         gstate.modifyObject(node)
         node.content = None
         node.children = []
         for c in node.children:
-            self.deleteNode(c)
+            gstate.deleteNode(c)
     
     def setFactor(self, node):
         dialog = FactorsDialog(True)
