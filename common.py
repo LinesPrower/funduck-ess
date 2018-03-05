@@ -592,10 +592,10 @@ class Dialog(QtGui.QDialog):
                             for capt, handler in extra_buttons])
 
         if close_btn:
-            buttons.extend([Button('Close', self.reject, autodefault=autodefault)])
+            buttons.extend([Button('Закрыть', self.reject, autodefault=autodefault)])
         else:
             buttons.extend([Button('&OK', ok_handler, autodefault=autodefault),
-                            Button('Cancel', self.reject, autodefault=autodefault)])
+                            Button('Отмена', self.reject, autodefault=autodefault)])
             self.addAction(Action(self, 'OK', '', ok_handler, 'F5'))
         
         buttons = HBox(buttons, align = kRightAlign)
@@ -614,6 +614,7 @@ class Dialog(QtGui.QDialog):
         s = QtCore.QSettings('PlatBox', self.appname)        
         s.setValue("%s/geometry" % self.wndname, self.saveGeometry())
         self.state_saver.save()
+        #print('%s: %d x %d' % (self.wndname, self.width(), self.height()))
         
     def registerStateObj(self, name, obj):
         self.state_saver.register(name, obj)
@@ -743,6 +744,7 @@ def showReport(title, text, only_close_button = True, modal=True):
             e.setFont(QtGui.QFont('Consolas', 10))
             e.setReadOnly(True)
             e.setPlainText(text)
+            self.resize(800, 600)
             self.setDialogLayout(e, 
                                  lambda: self.accept(), 
                                  has_statusbar = False, 
