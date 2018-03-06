@@ -386,7 +386,7 @@ class ESNode(ESObject):
             if ty == kGoal:
                 return QtGui.QColor(128, 255, 128)
             if ty == kFactor:
-                return QtGui.QColor(128, 128, 255)
+                return QtGui.QColor(192, 192, 255)
         return QtGui.QColor(255, 255, 0)
 
     def render(self, p, ignore_selection=False):

@@ -744,7 +744,7 @@ def showReport(title, text, only_close_button = True, modal=True):
             e.setFont(QtGui.QFont('Consolas', 10))
             e.setReadOnly(True)
             e.setPlainText(text)
-            self.resize(800, 600)
+            self.resize(640, 480)
             self.setDialogLayout(e, 
                                  lambda: self.accept(), 
                                  has_statusbar = False, 

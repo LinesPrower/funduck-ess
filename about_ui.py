@@ -38,7 +38,6 @@ class AboutDialog(cmn.Dialog):
         lbl.setWordWrap(True)
         icon_lbl = cmn.VBox([icon_lbl], align=cmn.kTopAlign)
         layout = cmn.HBox([icon_lbl, lbl], 15, 15)
-        self.resize(650, 380)
         self.setDialogLayout(layout, lambda: None, has_statusbar=False, close_btn=True, 
                              extra_buttons=[('Лицензионное соглашение', self.showLicense)])
         
