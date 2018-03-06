@@ -21,6 +21,11 @@ class DecisionTreeWidget(QtGui.QWidget):
         self.setFocusPolicy(QtCore.Qt.StrongFocus)
         p = QtGui.QPainter(self)
         objects.ESNode.font_metrics = QtGui.QFontMetrics(objects.ESNode.font, p.device())
+        
+        pal = QtGui.QPalette()
+        pal.setColor(QtGui.QPalette.Background, QtGui.QColor('white'))
+        self.setAutoFillBackground(True)
+        self.setPalette(pal)
         #gstate.getRoot().computeLayout(10, 10)
         self.owner = owner
         
@@ -118,7 +123,7 @@ class MainW(QtGui.QMainWindow):
         self.act_save_es = cmn.Action(self, 'Сохранить', 'icons/save.png', self.doSave, 'Ctrl+S')
         self.act_save_es_as = cmn.Action(self, 'Сохранить как...', '', self.doSaveAs)
         self.act_export_png = cmn.Action(self, 'Экспорт дерева решений в PNG...', '', self.doExportPNG)
-        self.act_check_es = cmn.Action(self, 'Проверить систему', '', self.doCheckES, 'F8')
+        self.act_check_es = cmn.Action(self, 'Проверить систему', 'icons/flag-blue.png', self.doCheckES, 'F8')
         self.act_run_es = cmn.Action(self, 'Запустить систему', 'icons/run.png', self.doRunES, 'F9')
         self.act_about = cmn.Action(self, 'О программе...', 'icons/info.png', lambda: AboutDialog().exec_())
         
@@ -150,6 +155,13 @@ class MainW(QtGui.QMainWindow):
         
         helpMenu = menubar.addMenu('Справка')
         helpMenu.addAction(self.act_about)
+        
+        toolbar = cmn.ToolBar([self.act_new_es, self.act_open_es, self.act_save_es, None,
+                               self.act_undo, self.act_redo, None, self.act_check_es, self.act_run_es,
+                               None, self.act_about])
+        toolbar.setObjectName('tlb_main')
+        toolbar.setWindowTitle('Панель инструментов')
+        self.addToolBar(toolbar)
         
         gstate.on_update = self.updateUI
         self.doNew()

@@ -346,7 +346,7 @@ class ESNode(ESObject):
 
     font = QtGui.QFont("Arial", 10)
     font_metrics = QtGui.QFontMetrics(font)
-    kDefaultText = 'Add a factor or a goal'
+    kDefaultText = 'Выберите фактор или цель'
     kVerticalMargin = 5
     kHorizontalMargin = 5
     kChoicesSpacing = 6
