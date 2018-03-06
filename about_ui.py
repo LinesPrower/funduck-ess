@@ -36,6 +36,7 @@ class AboutDialog(cmn.Dialog):
         icon_lbl.setPixmap(icon)
         lbl = QtGui.QLabel(self.about_text)
         lbl.setWordWrap(True)
+        lbl.setOpenExternalLinks(True)
         icon_lbl = cmn.VBox([icon_lbl], align=cmn.kTopAlign)
         layout = cmn.HBox([icon_lbl, lbl], 15, 15)
         self.setDialogLayout(layout, lambda: None, has_statusbar=False, close_btn=True, 

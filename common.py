@@ -21,7 +21,8 @@ _glw = None
 _main_window = None
 
 _realfile = os.path.realpath(__file__)
-_rootdir = os.path.realpath(os.path.join(os.path.dirname(_realfile), '..'))
+#_rootdir = os.path.realpath(os.path.join(os.path.dirname(_realfile), '..'))
+_rootdir = os.path.realpath(os.path.dirname(_realfile))
 
 DEBUG_BUILD = True
 #DEBUG_BUILD = False
@@ -563,7 +564,7 @@ class Dialog(QtGui.QDialog):
         self.wndname = wndname
         self.is_modal = is_modal
         self.setWindowTitle(title)        
-        self.setWindowIcon(QtGui.QIcon(_rootdir + '/platbox.ico'))
+        self.setWindowIcon(QtGui.QIcon(_rootdir + '/icons/duckling.png'))
         self.state_saver = StateSaver(wndname, appname)
         self.old_cur_wnd = None
     
