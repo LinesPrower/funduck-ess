@@ -187,7 +187,10 @@ class MainW(QtGui.QMainWindow):
             self.restoreState(t, 0)
 
         self.pbox = DecisionTreeWidget(self)
-        self.setCentralWidget(cmn.ensureWidget(self.pbox))
+        layout = QtGui.QScrollArea(self)
+        layout.setWidget(self.pbox)
+        layout.setWidgetResizable(True)
+        self.setCentralWidget(cmn.ensureWidget(layout))
 
         
         menubar = self.menuBar()
@@ -264,6 +267,8 @@ class MainW(QtGui.QMainWindow):
         self.act_undo.setEnabled(gstate.canUndo())
         self.act_redo.setEnabled(gstate.canRedo())
         gstate.getRoot().computeLayout(ESNode.kDiagramMargin, ESNode.kDiagramMargin)
+        w, h = gstate.getExtents()
+        self.pbox.setMinimumSize(w, h)
         self.pbox.update()
         
     def resetUI(self):
