@@ -65,7 +65,7 @@ class GoalsDialog(cmn.Dialog):
         self.list = QtGui.QListWidget(self)
         self.list.itemActivated.connect(self.onActivateItem)
         self.loadList()
-        layout = cmn.VBox([toolbar, self.list])
+        layout = cmn.VBox([toolbar, self.list], spacing=0)
         self.setDialogLayout(layout, self.doSelect, close_btn=not is_selecting, autodefault=False)
     
     def doSelect(self):

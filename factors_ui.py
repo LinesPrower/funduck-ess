@@ -57,6 +57,10 @@ class FactorDialog(cmn.Dialog):
         self.init_done = True
         self.updateUI()
         
+    def resizeEvent(self, ev):
+        self.edit_choices.setColumnWidth(0, self.edit_choices.width())
+        return cmn.Dialog.resizeEvent(self, ev)
+        
     def updateUI(self):
         if self.init_done:
             self.edit_choices.setEnabled(self.rb_text.isChecked())
@@ -134,7 +138,7 @@ class FactorsDialog(cmn.Dialog):
         self.list = QtGui.QListWidget(self)
         self.list.itemActivated.connect(self.onActivateItem)
         self.loadList()
-        layout = cmn.VBox([toolbar, self.list])
+        layout = cmn.VBox([toolbar, self.list], spacing=0)
         self.setDialogLayout(layout, self.doSelect, close_btn=not is_selecting, autodefault=False)
     
     def doSelect(self):
