@@ -337,6 +337,12 @@ class ESNode(ESObject):
             t = c.traverse(f)
             if t != None:
                 return t
+            
+    def traverse_aggr(self, f, aggrf):
+        arr = [f(self)]
+        for c in self.children:
+            arr.append(c.traverse(f, aggrf))
+        return aggrf(arr)
 
     font = QtGui.QFont("Arial", 10)
     font_metrics = QtGui.QFontMetrics(font)

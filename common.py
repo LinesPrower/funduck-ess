@@ -303,6 +303,12 @@ def startsWithAny(s, lst):
     """
     return anyF(lst, lambda x: s.startswith(x))
 
+def HLine():
+    t = QtGui.QFrame()
+    t.setFrameShape(QtGui.QFrame.HLine)
+    t.setFrameShadow(QtGui.QFrame.Sunken)
+    return t
+
 kTopAlign = 1
 kBottomAlign = 2
 

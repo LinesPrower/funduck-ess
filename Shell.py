@@ -6,9 +6,10 @@ from objects import gstate, kProgramName, ESNode
 from goals_ui import GoalsDialog
 from factors_ui import FactorsDialog
 import goals_ui
-from checker import CheckResultsPanel
+from checker import CheckResultsPanel, kCheckError
 from description_ui import DescriptionDialog
 from about_ui import AboutDialog
+from es_runner import ESWindow
 
 class DecisionTreeWidget(QtGui.QWidget):
 
@@ -244,7 +245,10 @@ class MainW(QtGui.QMainWindow):
         DescriptionDialog().exec_()
         
     def doRunES(self):
-        pass
+        if self.check_results.doCheck() >= kCheckError:
+            QtGui.QMessageBox.warning(self, kProgramName, 'Экспертная система содержит ошибки. Устраните ошибки и попробуйте снова.')
+            return
+        ESWindow().exec_()
                 
     def doGoals(self):
         GoalsDialog().exec_()
