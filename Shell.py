@@ -1,11 +1,10 @@
 from PyQt4 import QtGui, QtCore
-import json, sys, copy, os
-import io, objects
+import sys, copy
+import objects
 import common as cmn
-from objects import gstate, kProgramName, ESNode
-from goals_ui import GoalsDialog
-from factors_ui import FactorsDialog
-import goals_ui
+from objects import gstate, kProgramName, ESNode, kFactor, kGoal
+from goals_ui import GoalsDialog, GoalDialog
+from factors_ui import FactorsDialog, FactorDialog
 from checker import CheckResultsPanel, kCheckError
 from description_ui import DescriptionDialog
 from about_ui import AboutDialog
@@ -26,15 +25,90 @@ class DecisionTreeWidget(QtGui.QWidget):
         pal.setColor(QtGui.QPalette.Background, QtGui.QColor('white'))
         self.setAutoFillBackground(True)
         self.setPalette(pal)
-        #gstate.getRoot().computeLayout(10, 10)
+        
+        self.act_copy = cmn.Action(self, 'Копировать', 'icons/copy.png', self.doCopy, 'Ctrl+C')        
+        self.act_paste = cmn.Action(self, 'Вставить', 'icons/paste.png', self.doPaste, 'Ctrl+V')
+        self.addActions([self.act_copy, self.act_paste])        
         self.owner = owner
+    
+    def doCopy(self):
+        node = gstate.getCurrentNode()
+        if node != None:
+            gstate.clipboard = node.serializeSubtree() 
+    
+    def doPaste(self):
+        '''
+        Pasting is tricky, because:
+        a) some goals/factors may have been deleted since the copy operation.
+            In this case, we replace them with empty nodes
+        b) some factors may have choices count changed
+        '''
+        node = gstate.getCurrentNode()
+        if node == None or not gstate.clipboard:
+            return
+        
+        data_dict = { x['id'] : x for x in gstate.clipboard }
+        
+        def updateNode(node, data):
+            content_id = data['content']
+            if content_id not in gstate.objMap:
+                assert(node.content == None)
+                return # this node remains empty
+            node.content = gstate.objMap[content_id]
+            # this is how many children this node should have
+            n_children = len(node.content.choices) if node.content.getType() == kFactor else len(data['children'])
+            for child_id in data['children'][:n_children]:
+                t = gstate.addNewObject(ESNode())
+                node.children.append(t)
+                updateNode(t, data_dict[child_id])
+            while len(node.children) < n_children:
+                node.children.append(gstate.addNewObject(ESNode()))             
+        
+        gstate.beginTransaction('Paste')
+        try:
+            self.clearNode(node)
+            updateNode(node, gstate.clipboard[0])
+        finally:
+            gstate.endTransaction()
+    
+    def editCurrent(self, node):
+        if node.content.getType() == kFactor:
+            FactorDialog(node.content).exec_()
+        elif node.content.getType() == kGoal:
+            GoalDialog(node.content).exec_()             
+    
+    def getNodeUnderCursor(self, ev):
+        def f(node):
+            if node.x <= ev.x() <= node.x + node.width and node.y <= ev.y() <= node.y + node.height:
+                return node
+        return gstate.getRoot().traverse(f)            
+        
+    def contextMenuEvent(self, ev):
+        node = self.getNodeUnderCursor(ev)
+        if not node:
+            return
+        menu = QtGui.QMenu(self)
+        menu.addAction(cmn.Action(self, 'Выбрать фактор', '', lambda: self.setFactor(node), 'F'))
+        menu.addAction(cmn.Action(self, 'Выбрать цель', '', lambda: self.setGoal(node), 'G'))
+        menu.addSeparator()
+        self.act_copy.setEnabled(node.content != None)
+        menu.addAction(self.act_copy)
+        self.act_paste.setEnabled(bool(gstate.clipboard))
+        menu.addAction(self.act_paste)
+        if node.content:
+            menu.addSeparator()
+            t = 'Редактировать фактор' if node.content.getType() == kFactor else 'Редактировать цель'
+            menu.addAction(cmn.Action(self, t, '', lambda: self.editCurrent(node), 'E'))
+        menu.exec_(ev.globalPos())        
         
     def mousePressEvent(self, ev):
-        x = ev.x()
-        y = ev.y()
-        def set_sel(node):
-            node.selected = node.x <= x <= node.x + node.width and node.y <= y <= node.y + node.height
-
+        node = self.getNodeUnderCursor(ev)
+        if not node:
+            return
+                
+        def set_sel(x):
+            x.selected = x == node
+        
         gstate.getRoot().traverse(set_sel)
         self.update()
     
@@ -78,13 +152,13 @@ class DecisionTreeWidget(QtGui.QWidget):
         cur = gstate.getCurrentNode()
         if not cur:
             return
-        #key = ev.key()
         key = ev.nativeVirtualKey()
         if key == QtCore.Qt.Key_F:
             self.setFactor(cur)
         elif key == QtCore.Qt.Key_G:
             self.setGoal(cur)
-        
+        elif key == QtCore.Qt.Key_E:
+            self.editCurrent(cur)
 
     def paintEvent(self, ev):
         p = QtGui.QPainter(self)

@@ -21,6 +21,7 @@ class State:
     typedMaps = {} # type -> (ident -> ESObject)
     undo_stack = []
     redo_stack = []
+    clipboard = None
     next_id = 0
     saved = True
     filename = None
@@ -160,6 +161,7 @@ class State:
         self.typedMaps.clear()
         self.undo_stack.clear()
         self.redo_stack.clear()
+        self.clipboard = None
         self.saved = True
         self.filename = None
         self.next_id = 0
@@ -214,6 +216,7 @@ class State:
         self.setSnapshot(data)
         self.undo_stack.clear()
         self.redo_stack.clear()
+        self.clipboard = None
         self.saved = True
         self.filename = filename
         self.getRoot().selected = True
@@ -312,7 +315,7 @@ class ESNode(ESObject):
         
     def getType(self):
         return kNode
-
+    
     def serialize(self, f):
         res = super().serialize(f)
         def id(obj):
@@ -328,6 +331,18 @@ class ESNode(ESObject):
         super().deserialize(data)
         self.content = gstate.getObject(data['content'])
         self.children = [gstate.getObject(x) for x in data['children']]
+        
+    def serializeSubtree(self):
+        data = []
+        def f(obj):
+            if obj.getType() != kNode:
+                return
+            data.append(obj.serialize(f))
+            
+        data.append(self.serialize(f))
+        return list(reversed(data))
+    
+    
 
     def traverse(self, f):
         t = f(self)
@@ -405,7 +420,7 @@ class ESNode(ESObject):
             p.setPen(pen)
         p.drawRect(self.x, self.y, self.width, self.height)
         if self.selected:
-            p.setPen(QtGui.QColor("black"))
+            p.setPen(QtGui.QColor("black"))            
             
         text = self.getText()
         y = self.y + self.kVerticalMargin
@@ -413,10 +428,15 @@ class ESNode(ESObject):
         for s in text:
             p.drawText(x + self.kHorizontalMargin, y + self.lineheight, s)
             y += self.lineheight + self.kChoicesSpacing
+        
+        # lines between choices
+        for i in range(len(text)-1):
+            liney = self.y + self.kVerticalMargin + (i + 1) * self.lineheight + self.kChoicesSpacing * (i + 1)
+            p.drawLine(QtCore.QPointF(self.x, liney), QtCore.QPointF(self.x + self.width, liney))
             
         # connect to the children
-        start_idx = 1 if self.content and self.content.getType() == kFactor else 0
-        for i, c in enumerate(self.children, start_idx):
+        start_idx = 1 if self.content and self.content.getType() == kFactor else 0        
+        for i, c in enumerate(self.children, start_idx):            
             p.drawLine(self.getExitPoint(i), c.getEntryPoint())
             c.render(p, ignore_selection)
 
