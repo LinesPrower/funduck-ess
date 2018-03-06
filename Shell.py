@@ -187,10 +187,10 @@ class MainW(QtGui.QMainWindow):
             self.restoreState(t, 0)
 
         self.pbox = DecisionTreeWidget(self)
-        layout = QtGui.QScrollArea(self)
-        layout.setWidget(self.pbox)
-        layout.setWidgetResizable(True)
-        self.setCentralWidget(cmn.ensureWidget(layout))
+        self.pbox_scroll = QtGui.QScrollArea(self)
+        self.pbox_scroll.setWidget(self.pbox)
+        self.pbox_scroll.setWidgetResizable(True)
+        self.setCentralWidget(cmn.ensureWidget(self.pbox_scroll))
 
         
         menubar = self.menuBar()
@@ -345,7 +345,17 @@ class MainW(QtGui.QMainWindow):
         GoalsDialog().exec_()
         
     def doFactors(self):
-        FactorsDialog().exec_()        
+        FactorsDialog().exec_()
+        
+    def selectNode(self, node_id):
+        node = gstate.getRoot().traverse(lambda node: node if node.ident == node_id else None)
+        if node != None:
+            def f(x):
+                x.selected = x == node
+            gstate.getRoot().traverse(f)
+            self.pbox_scroll.ensureVisible(node.x, node.y)
+            self.pbox_scroll.ensureVisible(node.x + node.width, node.y + node.height)
+            self.pbox.update()
 
     def closeEvent(self, event):
         if not self.closingCheck():

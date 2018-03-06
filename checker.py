@@ -5,7 +5,7 @@ Created on Mar 4, 2018
 '''
 from PyQt4 import QtCore, QtGui
 import common as cmn
-from objects import gstate
+from objects import gstate, kFactor, getId
 
 kCheckOK = 0
 kCheckWarning = 1
@@ -21,10 +21,15 @@ class CheckResultsPanel(QtGui.QDockWidget):
         self.setObjectName('results_panel') # for state saving
 
         self.err_list = QtGui.QListWidget()
+        self.err_list.itemActivated.connect(self.onActivated)
         self.setWidget(self.err_list)
 
         self.setFeatures(QtGui.QDockWidget.DockWidgetMovable)
 
+    def onActivated(self, item):
+        if item.node_id != None:
+            self.owner.selectNode(item.node_id) 
+    
     def reset(self):
         self.err_list.clear()
 
@@ -33,9 +38,10 @@ class CheckResultsPanel(QtGui.QDockWidget):
         self.err_list.clear()
         self.severity = kCheckOK
         
-        def addMsg(message, severity):
+        def addMsg(message, severity, node=None):
             self.severity = max(self.severity, severity)
             item = QtGui.QListWidgetItem(message)
+            item.node_id = getId(node)
             if severity == kCheckError:
                 icon = 'icons/error.png'
             elif severity == kCheckWarning:
@@ -48,8 +54,23 @@ class CheckResultsPanel(QtGui.QDockWidget):
         # check for incompleted nodes
         def f(node):
             if node.content == None:
-                addMsg('Незавершённый узел в дереве решений', kCheckError)
+                addMsg('Незавершённый узел в дереве решений', kCheckError, node)
         gstate.getRoot().traverse(f)
+        
+        # check for duplicated factors
+        used_factors = set()
+        def check(node):
+            content = node.content
+            if content and content.getType() == kFactor:
+                if content in used_factors:
+                    addMsg('Фактор "%s" встречается более одного раза в одной ветке дерева' % content.name, kCheckError, node)
+                    return
+                used_factors.add(content)
+            for c in node.children:
+                check(c)
+            if content and content.getType() == kFactor:
+                used_factors.remove(content)                
+        check(gstate.getRoot())             
         
         # check for unused goals
         for g in gstate.goalsMap().values():
