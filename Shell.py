@@ -255,6 +255,7 @@ class MainW(QtGui.QMainWindow):
         self.act_save_es = cmn.Action(self, 'Сохранить', 'icons/save.png', self.doSave, 'Ctrl+S')
         self.act_save_es_as = cmn.Action(self, 'Сохранить как...', '', self.doSaveAs)
         self.act_export_png = cmn.Action(self, 'Экспорт дерева решений в PNG...', '', self.doExportPNG)
+        self.act_export_rules = cmn.Action(self, 'Экспорт списка правил...', '', self.doExportRules)
         self.act_check_es = cmn.Action(self, 'Проверить систему', 'icons/flag-blue.png', self.doCheckES, 'F8')
         self.act_run_es = cmn.Action(self, 'Запустить систему', 'icons/run.png', self.doRunES, 'F9')
         self.act_about = cmn.Action(self, 'О программе...', 'icons/info.png', lambda: AboutDialog().exec_())
@@ -265,6 +266,7 @@ class MainW(QtGui.QMainWindow):
         fileMenu.addAction(self.act_save_es_as)
         fileMenu.addSeparator()
         fileMenu.addAction(self.act_export_png)
+        fileMenu.addAction(self.act_export_rules)
         fileMenu.addSeparator()
         fileMenu.addAction(self.act_check_es)
         fileMenu.addAction(self.act_run_es)
@@ -383,6 +385,24 @@ class MainW(QtGui.QMainWindow):
             p.setFont(ESNode.font)
             gstate.getRoot().render(p, True)
         img.save(fname, 'PNG')
+        
+    def doExportRules(self):
+        if self.check_results.doCheck() >= kCheckError:
+            QtGui.QMessageBox.warning(self, kProgramName, 'Экспертная система содержит ошибки. Устраните ошибки и попробуйте снова.')
+            return            
+        
+        rules = []
+        def gen(node, conds):
+            if node.content.getType() == kGoal:
+                conds = ' И '.join('"%s" = "%s"' % c for c in conds) if conds else 'True'
+                rule = 'ЕСЛИ %s\nТО %s;' % (conds, node.content.name)
+                rules.append(rule)
+                return
+            for child, choice in zip(node.children, node.content.choices):
+                gen(child, conds + [(node.content.name, choice)])
+        gen(gstate.getRoot(), [])
+        data = 'Число правил: %d\n' % len(rules) + '\n'.join(rules)
+        cmn.showReport('Правила', data)            
         
     def doCheckES(self):
         self.check_results.doCheck()
