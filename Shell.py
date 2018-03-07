@@ -2,7 +2,7 @@ from PyQt4 import QtGui, QtCore
 import sys
 import objects
 import common as cmn
-from objects import gstate, kProgramName, ESNode, kFactor, kGoal, getId
+from objects import gstate, kProgramName, ESNode, kFactor, kGoal, getId, getType
 from goals_ui import GoalsDialog, GoalDialog
 from factors_ui import FactorsDialog, FactorDialog
 from checker import CheckResultsPanel, kCheckError
@@ -90,6 +90,8 @@ class DecisionTreeWidget(QtGui.QWidget):
         menu = QtGui.QMenu(self)
         menu.addAction(cmn.Action(self, 'Выбрать фактор', '', lambda: self.setFactor(node), 'F'))
         menu.addAction(cmn.Action(self, 'Выбрать цель', '', lambda: self.setGoal(node), 'G'))
+        if getType(node.content) == kGoal and not node.children:
+            menu.addAction(cmn.Action(self, 'Добавить дополнительную цель', '', lambda: self.addExtraGoal(node), 'Shift+G'))
         menu.addSeparator()
         self.act_copy.setEnabled(node.content != None)
         menu.addAction(self.act_copy)
@@ -147,6 +149,20 @@ class DecisionTreeWidget(QtGui.QWidget):
             node.content = goal
         finally:
             gstate.endTransaction() 
+            
+    def addExtraGoal(self, node):
+        if getType(node.content) != kGoal or node.children:
+            return
+        dialog = GoalsDialog(True)
+        if not dialog.exec_():
+            return
+        goal = dialog.selected_item
+        gstate.beginTransaction('Add Extra Goal')
+        try:
+            gstate.modifyObject(node)
+            node.children.append(gstate.addNewObject(ESNode(None, goal)))
+        finally:
+            gstate.endTransaction()
         
     def keyPressEvent(self, ev):
         key = ev.nativeVirtualKey()
@@ -205,12 +221,16 @@ class DecisionTreeWidget(QtGui.QWidget):
             
         if not cur:
             return
-        if key == QtCore.Qt.Key_F:
-            self.setFactor(cur)
-        elif key == QtCore.Qt.Key_G:
-            self.setGoal(cur)
-        elif key == QtCore.Qt.Key_E:
-            self.editCurrent(cur)
+        if int(ev.modifiers()) == 0:
+            if key == QtCore.Qt.Key_F:
+                self.setFactor(cur)
+            elif key == QtCore.Qt.Key_G:
+                self.setGoal(cur)
+            elif key == QtCore.Qt.Key_E:
+                self.editCurrent(cur)
+        elif ev.modifiers() == QtCore.Qt.ShiftModifier:
+            if key == QtCore.Qt.Key_G:
+                self.addExtraGoal(cur)
             
 
     def paintEvent(self, ev):
@@ -392,14 +412,19 @@ class MainW(QtGui.QMainWindow):
             return            
         
         rules = []
-        def gen(node, conds):
-            if node.content.getType() == kGoal:
+        def gen(node, conds, ex_goals = []):
+            if not node.children:
                 conds = ' И '.join('"%s" = "%s"' % c for c in conds) if conds else 'True'
-                rule = 'ЕСЛИ %s\nТО %s;' % (conds, node.content.name)
+                result = ', '.join(ex_goals + [node.content.name])
+                rule = 'ЕСЛИ %s\nТО %s;' % (conds, result)
                 rules.append(rule)
                 return
-            for child, choice in zip(node.children, node.content.choices):
-                gen(child, conds + [(node.content.name, choice)])
+            if node.content.getType() == kFactor:
+                for child, choice in zip(node.children, node.content.choices):
+                    gen(child, conds + [(node.content.name, choice)])
+            else:
+                gen(node.children[0], conds, ex_goals + [node.content.name])
+                    
         gen(gstate.getRoot(), [])
         data = 'Число правил: %d\n' % len(rules) + '\n'.join(rules)
         cmn.showReport('Правила', data)            

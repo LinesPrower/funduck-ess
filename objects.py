@@ -232,7 +232,6 @@ class State:
         self.clipboard = None
         self.saved = True
         self.filename = filename
-        self.getRoot().selected = True
         
     def getExtents(self):
         extents = [0, 0]
@@ -390,7 +389,7 @@ class ESNode(ESObject):
         res2 = 0
         
         # this is needed for the diagram to look better
-        if self.children and getType(self.children[0].content) != kFactor:
+        if self.children and getType(self.content) != kGoal and getType(self.children[0].content) != kFactor:
             res2 += self.min_item_height
             
         for c in self.children:

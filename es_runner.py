@@ -65,8 +65,13 @@ class ESWindow(cmn.Dialog):
             msg = 'Используйте цифры на клавиатуре для быстрого выбора ответов'
         else:
             assert(cur.getType() == kGoal)
-            text = '<span style="color:green;">%s</span><br/>%s<br/><span style="font-size:12pt;">%s</span>' 
-            text = text % ('Результат', cur.name, cur.descr)
+            text = '<span style="color:green;">%s</span>' % 'Результат'
+            v = self.cur_node
+            while True:
+                text += '<br/>%s<br/><span style="font-size:12pt;">%s</span>' % (v.content.name, v.content.descr)
+                if not v.children:
+                    break
+                v = v.children[0] 
             choices = []
         
         self.question.setText(text)
