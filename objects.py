@@ -369,15 +369,16 @@ class ESNode(ESObject):
 
     # arguments: upper left corner of this subtree
     # returns: height of this subtree
-    def computeLayout(self, x, y):
+    def computeLayout(self, x, y, parent=None):
         self.computeDimensions()
+        self.parent = parent
         self.x = x
         self.y = y
         res = self.height
         kVerticalSpan = 5
         res2 = 0
         for c in self.children:
-            res2 += c.computeLayout(x + self.width + 20, y + res2) + kVerticalSpan
+            res2 += c.computeLayout(x + self.width + 20, y + res2, self) + kVerticalSpan
         return max(res, res2 - kVerticalSpan)
 
     def getEntryPoint(self):

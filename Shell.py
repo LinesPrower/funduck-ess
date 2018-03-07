@@ -2,7 +2,7 @@ from PyQt4 import QtGui, QtCore
 import sys, copy
 import objects
 import common as cmn
-from objects import gstate, kProgramName, ESNode, kFactor, kGoal
+from objects import gstate, kProgramName, ESNode, kFactor, kGoal, getId
 from goals_ui import GoalsDialog, GoalDialog
 from factors_ui import FactorsDialog, FactorDialog
 from checker import CheckResultsPanel, kCheckError
@@ -149,16 +149,69 @@ class DecisionTreeWidget(QtGui.QWidget):
             gstate.endTransaction() 
         
     def keyPressEvent(self, ev):
+        key = ev.nativeVirtualKey()
+        keyx = ev.key()
         cur = gstate.getCurrentNode()
+        
+        def getPrevNode(node):
+            k = 0
+            while True:
+                p = node.parent
+                if not p:
+                    return
+                idx = p.children.index(node)
+                if idx == 0:
+                    k += 1
+                else:
+                    node = p.children[idx-1]
+                    break
+                node = p
+            for _ in range(k):
+                if node.children:
+                    node = node.children[-1]
+            return node
+        
+        def getNextNode(node):
+            k = 0
+            while True:
+                p = node.parent
+                if not p:
+                    return
+                idx = p.children.index(node)
+                if idx == len(p.children) - 1:
+                    k += 1
+                else:
+                    node = p.children[idx+1]
+                    break
+                node = p
+            for _ in range(k):
+                if node.children:
+                    node = node.children[0]
+            return node
+                        
+        if keyx in [QtCore.Qt.Key_Left, QtCore.Qt.Key_Right, QtCore.Qt.Key_Up, QtCore.Qt.Key_Down]:
+            if not cur:
+                tgt = gstate.getRoot()
+            elif keyx == QtCore.Qt.Key_Left:
+                tgt = cur.parent
+            elif keyx == QtCore.Qt.Key_Right:
+                tgt = cur.children[0] if cur.children else None
+            elif keyx == QtCore.Qt.Key_Up:
+                tgt = getPrevNode(cur)
+            else:
+                tgt = getNextNode(cur)
+            self.owner.selectNode(getId(tgt))
+            return
+            
         if not cur:
             return
-        key = ev.nativeVirtualKey()
         if key == QtCore.Qt.Key_F:
             self.setFactor(cur)
         elif key == QtCore.Qt.Key_G:
             self.setGoal(cur)
         elif key == QtCore.Qt.Key_E:
             self.editCurrent(cur)
+            
 
     def paintEvent(self, ev):
         p = QtGui.QPainter(self)
@@ -190,7 +243,9 @@ class MainW(QtGui.QMainWindow):
         self.pbox_scroll = QtGui.QScrollArea(self)
         self.pbox_scroll.setWidget(self.pbox)
         self.pbox_scroll.setWidgetResizable(True)
-        self.setCentralWidget(cmn.ensureWidget(self.pbox_scroll))
+        self.pbox_scroll.setFocusProxy(self.pbox)
+        layout = self.pbox_scroll
+        self.setCentralWidget(cmn.ensureWidget(layout))
 
         
         menubar = self.menuBar()
@@ -274,6 +329,7 @@ class MainW(QtGui.QMainWindow):
     def resetUI(self):
         self.check_results.reset()
         self.updateUI()
+        self.pbox.setFocus()
         
     def doNew(self):
         if not self.closingCheck():
