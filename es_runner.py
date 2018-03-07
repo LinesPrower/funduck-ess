@@ -36,12 +36,10 @@ class ESWindow(cmn.Dialog):
             self.n_choices = 0
         
         self.choices_labels = [ChoiceLabel(self, i) for i in range(self.n_choices)]
-        
-        self.question = QtGui.QLabel()
+                
+        self.question = QtGui.QTextEdit()
         self.question.setFont(ChoiceLabel.fnt)
-        self.question.setWordWrap(True)
-        self.question.setAlignment(QtCore.Qt.AlignTop)
-        self.question.setStyleSheet('QLabel { background-color:white; }')
+        self.question.setReadOnly(True)
         
         self.addAction(cmn.Action(self, 'Restart', '', self.doRestart, 'F2'))
         
@@ -68,7 +66,7 @@ class ESWindow(cmn.Dialog):
         else:
             assert(cur.getType() == kGoal)
             text = '<span style="color:green;">%s</span><br/>%s<br/><span style="font-size:12pt;">%s</span>' 
-            text = text % ('Результат:', cur.name, cur.descr)
+            text = text % ('Результат', cur.name, cur.descr)
             choices = []
         
         self.question.setText(text)
