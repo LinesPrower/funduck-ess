@@ -33,7 +33,7 @@ class FactorDialog(cmn.Dialog):
             rb.setChecked(checked)
             return rb
         
-        self.edit_choices = cmn.Grid(['Значения'], [500])
+        self.edit_choices = cmn.Grid(['Значения'], [500], True)
         self.edit_choices.cellChanged.connect(self.onCellChanged)
         self.rb_binary = make_rb('Бинарный', True)
         self.rb_text = make_rb('Текстовый')
@@ -78,6 +78,7 @@ class FactorDialog(cmn.Dialog):
         if self.get_choice(rc - 1):
             self.edit_choices.setRowCount(rc + 1)
             self.edit_choices.setCurrentCell(rc, 0)
+            self.edit_choices.resizeRowToContents(rc)
         
     def doOk(self):
         name = self.edit_name.text().strip()

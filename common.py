@@ -403,21 +403,27 @@ def Separator(owner):
 
 class Grid(QtGui.QTableWidget):
     
-    def __init__(self, col_names, widths = None):
+    def __init__(self, col_names, widths=None, allow_deleting_rows=False):
         super(Grid, self).__init__(0, len(col_names))
         self.setHorizontalHeaderLabels(col_names)
         self.verticalHeader().setVisible(False)
         self.setSelectionBehavior(QtGui.QAbstractItemView.SelectRows)
+        self.allow_deleting_rows = allow_deleting_rows
         if widths:
             self.load(widths)
     
     def keyPressEvent(self, event):
-        if event.key() == QtCore.Qt.Key_Return:
-            #print('!')
-            #if self.currentItem():
-            #    self.editItem(self.currentItem())
+        if self.allow_deleting_rows and event.key() == QtCore.Qt.Key_Delete:
+            if self.currentItem() and self.currentRow() + 1 < self.rowCount():
+                self.removeRow(self.currentRow())            
             return
         return QtGui.QTableWidget.keyPressEvent(self, event)
+    
+    def contextMenuEvent(self, event):
+        if self.allow_deleting_rows and self.currentItem() and self.currentRow() + 1 < self.rowCount():
+            menu = QtGui.QMenu(self)
+            menu.addAction(Action(self, 'Удалить', '', lambda: self.removeRow(self.currentRow()), 'Delete'))
+            menu.exec_(event.globalPos())
         
     def load(self, widths):
         for i, w in enumerate(widths):
