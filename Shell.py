@@ -296,9 +296,7 @@ class MainW(QtGui.QMainWindow):
         self.addToolBar(toolbar)
         
         gstate.on_update = self.updateUI
-        self.doNew()
-        #self.doOpenRaw('demo/test.es')
-        
+        self.doNew()       
         self.show()
     
     def closingCheck(self):
@@ -406,9 +404,7 @@ class MainW(QtGui.QMainWindow):
     def selectNode(self, node_id):
         node = gstate.getRoot().traverse(lambda node: node if node.ident == node_id else None)
         if node != None:
-            def f(x):
-                x.selected = x == node
-            gstate.getRoot().traverse(f)
+            gstate.setCurrentNode(node)
             self.pbox_scroll.ensureVisible(node.x, node.y)
             self.pbox_scroll.ensureVisible(node.x + node.width, node.y + node.height)
             self.pbox.update()

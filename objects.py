@@ -155,6 +155,11 @@ class State:
                 return node
         return self.getRoot().traverse(f)
     
+    def setCurrentNode(self, node):
+        def f(x):
+            x.selected = x == node
+        self.getRoot().traverse(f)
+    
     def resetState(self):
         assert(not self.in_transaction)
         self.objMap.clear()
@@ -181,7 +186,8 @@ class State:
             data.append(obj.serialize(f))
         for obj in self.objMap.values():
             f(obj)
-        return json.dumps({ 'objects' : data, 'version' : 2, 'es_name': self.es_name, 'es_descr': self.es_descr})
+        return json.dumps({ 'objects' : data, 'version' : 3, 'es_name': self.es_name, 
+                           'es_descr': self.es_descr, 'cur_node': getId(self.getCurrentNode())})
     
     def saveToFile(self, filename):
         assert(not self.in_transaction)
@@ -207,6 +213,8 @@ class State:
             obj.deserialize(item)
             self.addObjectRaw(obj)
             self.next_id = max(self.next_id, obj.ident)
+        if 'cur_node' in data:
+            self.setCurrentNode(self.getObject(data['cur_node']))
         
         
     def loadFromFile(self, filename):
