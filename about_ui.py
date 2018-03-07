@@ -10,7 +10,7 @@ import io
 
 class AboutDialog(cmn.Dialog):
     
-    about_text = '''<b>%s - Оболочка для экспертных систем</b>
+    about_text = '''<b>%s - Оболочка для экспертных систем</b><br/>Версия 1.0
     <br/>
     Copyright © 2018 Ахметзянов Дамир (linesprower@gmail.com) 
     <br/>
