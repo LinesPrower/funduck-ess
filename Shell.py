@@ -1,5 +1,5 @@
 from PyQt4 import QtGui, QtCore
-import sys, copy
+import sys
 import objects
 import common as cmn
 from objects import gstate, kProgramName, ESNode, kFactor, kGoal, getId
@@ -368,6 +368,7 @@ class MainW(QtGui.QMainWindow):
         fname = cmn.getOpenFileName(self, 'es', 'Сохранить в файл', 'Expert System Files (*.es)', True)
         if fname:
             self.doSaveRaw(fname)
+            self.updateUI() # window title
             return True
         return False
     
@@ -405,8 +406,8 @@ class MainW(QtGui.QMainWindow):
         node = gstate.getRoot().traverse(lambda node: node if node.ident == node_id else None)
         if node != None:
             gstate.setCurrentNode(node)
-            self.pbox_scroll.ensureVisible(node.x, node.y)
             self.pbox_scroll.ensureVisible(node.x + node.width, node.y + node.height)
+            self.pbox_scroll.ensureVisible(node.x, node.y) # this part is more important
             self.pbox.update()
 
     def closeEvent(self, event):
