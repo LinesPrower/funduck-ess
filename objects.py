@@ -15,6 +15,11 @@ def getId(obj):
     if obj is None:
         return None
     return obj.ident
+
+def getType(obj):
+    if obj is None:
+        return None
+    return obj.getType()
     
 class State:
     objMap = {} # ident -> ESObject
@@ -370,9 +375,8 @@ class ESNode(ESObject):
     font = QtGui.QFont("Arial", 10)
     font_metrics = QtGui.QFontMetrics(font)
     kDefaultText = 'Выберите фактор или цель'
-    kVerticalMargin = 5
     kHorizontalMargin = 5
-    kChoicesSpacing = 6
+    kItemVerticalMargin = 5
     kDiagramMargin = 10
 
     # arguments: upper left corner of this subtree
@@ -382,24 +386,39 @@ class ESNode(ESObject):
         self.parent = parent
         self.x = x
         self.y = y
-        res = self.height
         kVerticalSpan = 5
         res2 = 0
+        
+        # this is needed for the diagram to look better
+        if self.children and getType(self.children[0].content) != kFactor:
+            res2 += self.min_item_height
+            
         for c in self.children:
             res2 += c.computeLayout(x + self.width + 20, y + res2, self) + kVerticalSpan
-        return max(res, res2 - kVerticalSpan)
+            
+        self.ys = [y]
+        n = len(self.getText())
+        for i in range(n):
+            t = self.ys[-1] + self.min_item_height
+            if i > 0 and i + 1 < n:
+                t = max(t, self.children[i-1].ys[-1])
+            self.ys.append(t)
+        
+        self.height = self.ys[-1] - self.ys[0]
+        return max(self.height, res2 - kVerticalSpan)
 
     def getEntryPoint(self):
-        return QtCore.QPointF(self.x, self.y + self.kVerticalMargin + self.lineheight / 2)
+        return QtCore.QPointF(self.x, self.ys[0] + self.min_item_height / 2)
 
     def getExitPoint(self, idx):
-        return QtCore.QPointF(self.x + self.width, self.y + self.kVerticalMargin + self.lineheight * (idx + 0.5) + self.kChoicesSpacing * idx)
+        return QtCore.QPointF(self.x + self.width, self.ys[idx] + self.min_item_height / 2)
 
     def computeDimensions(self):
         text = self.getText()
         self.lineheight = self.font_metrics.height()
+        self.min_item_height = self.lineheight + 2 * self.kItemVerticalMargin
         self.width = max(self.font_metrics.boundingRect(x).width() for x in text) + 2 * self.kHorizontalMargin
-        self.height = self.lineheight * len(text) + self.kChoicesSpacing * (len(text) - 1) + 2 * self.kVerticalMargin
+        self.height = self.min_item_height * len(text)
 
     def getText(self):
         if self.content:
@@ -432,21 +451,26 @@ class ESNode(ESObject):
             p.setPen(QtGui.QColor("black"))            
             
         text = self.getText()
-        y = self.y + self.kVerticalMargin
-        x = self.x
-        for s in text:
-            p.drawText(x + self.kHorizontalMargin, y + self.lineheight, s)
-            y += self.lineheight + self.kChoicesSpacing
+        x = self.x + self.kHorizontalMargin
+        for texty, s in zip(self.ys, text):
+            p.drawText(x, texty + self.lineheight, s)
+        
+        def rightLine(a, b):
+            x = (a.x() + b.x()) / 2
+            if abs(a.y() - b.y()) < 10:
+                a.setY(b.y())
+            p1 = QtCore.QPointF(x, a.y())
+            p2 = QtCore.QPointF(x, b.y())
+            p.drawLines(a, p1, p1, p2, p2, b)
         
         # lines between choices
-        for i in range(len(text)-1):
-            liney = self.y + self.kVerticalMargin + (i + 1) * self.lineheight + self.kChoicesSpacing * (i + 1)
+        for liney in self.ys[1:-1]:
             p.drawLine(QtCore.QPointF(self.x, liney), QtCore.QPointF(self.x + self.width, liney))
             
         # connect to the children
         start_idx = 1 if self.content and self.content.getType() == kFactor else 0        
         for i, c in enumerate(self.children, start_idx):            
-            p.drawLine(self.getExitPoint(i), c.getEntryPoint())
+            rightLine(self.getExitPoint(i), c.getEntryPoint())
             c.render(p, ignore_selection)
 
 objTypes[kNode] = ESNode
