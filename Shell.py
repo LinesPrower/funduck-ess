@@ -36,6 +36,7 @@ class DecisionTreeWidget(QtGui.QWidget):
     def __init__(self, owner):
         QtGui.QWidget.__init__(self)
         
+        self.panning = False
         self.setMouseTracking(True)
         self.setFocusPolicy(QtCore.Qt.StrongFocus)
         p = QtGui.QPainter(self)
@@ -126,6 +127,13 @@ class DecisionTreeWidget(QtGui.QWidget):
         menu.exec_(ev.globalPos())        
         
     def mousePressEvent(self, ev):
+        if ev.button() == QtCore.Qt.MiddleButton:
+            self.panning = True
+            gpos = ev.globalPos()
+            self.last_x = gpos.x()
+            self.last_y = gpos.y()
+            return
+            
         node = self.getNodeUnderCursor(ev)
         if not node:
             return
@@ -135,6 +143,23 @@ class DecisionTreeWidget(QtGui.QWidget):
         
         gstate.getRoot().traverse(set_sel)
         self.update()
+    
+    def mouseMoveEvent(self, ev):
+        if not self.panning:
+            return
+        gpos = ev.globalPos()
+        x, y = gpos.x(), gpos.y()
+        sb = self.owner.pbox_scroll.horizontalScrollBar()
+        if sb:
+            sb.setSliderPosition(sb.value() - x + self.last_x)
+        sb = self.owner.pbox_scroll.verticalScrollBar()
+        if sb:
+            sb.setSliderPosition(sb.value() - y + self.last_y)
+        self.last_x = x
+        self.last_y = y
+        
+    def mouseReleaseEvent(self, ev):
+        self.panning = False
     
     def clearNode(self, node):
         gstate.modifyObject(node)
