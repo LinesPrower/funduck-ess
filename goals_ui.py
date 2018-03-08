@@ -57,14 +57,18 @@ class GoalDialog(cmn.Dialog):
         if err != None:
             self.sbar.showMessage(err)
             return
-        if self.obj == None:
-            goal = ESGoal(None, name, descr)
-            gstate.addNewObject(goal)
-            self.new_obj = goal
-        else:
-            gstate.modifyObject(self.obj)
-            self.obj.name = name
-            self.obj.descr = descr
+        gstate.beginTransaction()
+        try:
+            if self.obj == None:
+                goal = ESGoal(None, name, descr)
+                gstate.addNewObject(goal)
+                self.new_obj = goal
+            else:
+                gstate.modifyObject(self.obj)
+                self.obj.name = name
+                self.obj.descr = descr
+        finally:
+            gstate.endTransaction()
         self.accept()
 
 class GoalsDialog(cmn.Dialog):
