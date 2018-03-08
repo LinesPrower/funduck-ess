@@ -112,6 +112,8 @@ class DecisionTreeWidget(QtGui.QWidget):
         menu.addAction(cmn.Action(self, _('Select a goal'), '', lambda: self.setGoal(node), 'G'))
         if getType(node.content) == kGoal and not node.children:
             menu.addAction(cmn.Action(self, _('Add an extra goal'), '', lambda: self.addExtraGoal(node), 'Shift+G'))
+        if node.content != None:
+            menu.addAction(cmn.Action(self, _('Clear node'), '', lambda: self.clearNodeUI(node), 'X'))
         menu.addSeparator()
         self.act_copy.setEnabled(node.content != None)
         menu.addAction(self.act_copy)
@@ -140,6 +142,15 @@ class DecisionTreeWidget(QtGui.QWidget):
         node.children = []
         for c in node.children:
             gstate.deleteNode(c)
+            
+    def clearNodeUI(self, node):
+        if not node.content:
+            return
+        gstate.beginTransaction('Clear node')
+        try:
+            self.clearNode(node)
+        finally:
+            gstate.endTransaction()
     
     def setFactor(self, node):
         dialog = FactorsDialog(True)
@@ -248,10 +259,11 @@ class DecisionTreeWidget(QtGui.QWidget):
                 self.setGoal(cur)
             elif key == QtCore.Qt.Key_E:
                 self.editCurrent(cur)
+            elif key == QtCore.Qt.Key_X:
+                self.clearNodeUI(cur)
         elif ev.modifiers() == QtCore.Qt.ShiftModifier:
             if key == QtCore.Qt.Key_G:
-                self.addExtraGoal(cur)
-            
+                self.addExtraGoal(cur)        
 
     def paintEvent(self, ev):
         p = QtGui.QPainter(self)
