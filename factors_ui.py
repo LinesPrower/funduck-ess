@@ -105,6 +105,8 @@ class FactorDialog(cmn.Dialog):
             choices = list(filter(None, choices))
         if len(choices) < 2:
             err = _('A factor should have at least two values')
+        elif len(set(choices)) != len(choices):
+            err = _('All values must be different')
         else:
             err = checkFactorName(name, self.obj != None)
         if err != None:
