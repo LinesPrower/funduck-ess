@@ -51,7 +51,12 @@ setup(
                 'extract_messages': babel.extract_messages,
                 'init_catalog': babel.init_catalog,
                 'update_catalog': babel.update_catalog},
-    windows=['Shell.py'], 
+    windows = [
+        {
+            "script": "Shell.py",
+            "icon_resources": [(1, "icons/duckling.ico")]
+        }
+    ], 
     zipfile='lib/library.zip', 
     options={"py2exe":{"includes":["sip"]}},
     data_files=find_data_files('', '', [
