@@ -26,8 +26,8 @@ class DecisionTreeWidget(QtGui.QWidget):
         self.setAutoFillBackground(True)
         self.setPalette(pal)
         
-        self.act_copy = cmn.Action(self, 'Копировать', 'icons/copy.png', self.doCopy, 'Ctrl+C')        
-        self.act_paste = cmn.Action(self, 'Вставить', 'icons/paste.png', self.doPaste, 'Ctrl+V')
+        self.act_copy = cmn.Action(self, _('Copy'), 'icons/copy.png', self.doCopy, 'Ctrl+C')        
+        self.act_paste = cmn.Action(self, _('Paste'), 'icons/paste.png', self.doPaste, 'Ctrl+V')
         self.addActions([self.act_copy, self.act_paste])        
         self.owner = owner
     
@@ -88,10 +88,10 @@ class DecisionTreeWidget(QtGui.QWidget):
         if not node:
             return
         menu = QtGui.QMenu(self)
-        menu.addAction(cmn.Action(self, 'Выбрать фактор', '', lambda: self.setFactor(node), 'F'))
-        menu.addAction(cmn.Action(self, 'Выбрать цель', '', lambda: self.setGoal(node), 'G'))
+        menu.addAction(cmn.Action(self, _('Select a factor'), '', lambda: self.setFactor(node), 'F'))
+        menu.addAction(cmn.Action(self, _('Select a goal'), '', lambda: self.setGoal(node), 'G'))
         if getType(node.content) == kGoal and not node.children:
-            menu.addAction(cmn.Action(self, 'Добавить дополнительную цель', '', lambda: self.addExtraGoal(node), 'Shift+G'))
+            menu.addAction(cmn.Action(self, _('Add an extra goal'), '', lambda: self.addExtraGoal(node), 'Shift+G'))
         menu.addSeparator()
         self.act_copy.setEnabled(node.content != None)
         menu.addAction(self.act_copy)
@@ -99,7 +99,7 @@ class DecisionTreeWidget(QtGui.QWidget):
         menu.addAction(self.act_paste)
         if node.content:
             menu.addSeparator()
-            t = 'Редактировать фактор' if node.content.getType() == kFactor else 'Редактировать цель'
+            t = _('Edit factor') if node.content.getType() == kFactor else _('Edit goal')
             menu.addAction(cmn.Action(self, t, '', lambda: self.editCurrent(node), 'E'))
         menu.exec_(ev.globalPos())        
         
@@ -269,16 +269,16 @@ class MainW(QtGui.QMainWindow):
 
         
         menubar = self.menuBar()
-        fileMenu = menubar.addMenu('Файл')
-        self.act_new_es = cmn.Action(self, 'Новая экспертная система', 'icons/new.png', self.doNew, 'Ctrl+N')
-        self.act_open_es = cmn.Action(self, 'Открыть...', 'icons/open.png', self.doOpen, 'Ctrl+O')
-        self.act_save_es = cmn.Action(self, 'Сохранить', 'icons/save.png', self.doSave, 'Ctrl+S')
-        self.act_save_es_as = cmn.Action(self, 'Сохранить как...', '', self.doSaveAs)
-        self.act_export_png = cmn.Action(self, 'Экспорт дерева решений в PNG...', '', self.doExportPNG)
-        self.act_export_rules = cmn.Action(self, 'Экспорт списка правил...', '', self.doExportRules)
-        self.act_check_es = cmn.Action(self, 'Проверить систему', 'icons/flag-blue.png', self.doCheckES, 'F8')
-        self.act_run_es = cmn.Action(self, 'Запустить систему', 'icons/run.png', self.doRunES, 'F9')
-        self.act_about = cmn.Action(self, 'О программе...', 'icons/info.png', lambda: AboutDialog().exec_())
+        fileMenu = menubar.addMenu(_('File'))
+        self.act_new_es = cmn.Action(self, _('New expert system'), 'icons/new.png', self.doNew, 'Ctrl+N')
+        self.act_open_es = cmn.Action(self, _('Open...'), 'icons/open.png', self.doOpen, 'Ctrl+O')
+        self.act_save_es = cmn.Action(self, _('Save'), 'icons/save.png', self.doSave, 'Ctrl+S')
+        self.act_save_es_as = cmn.Action(self, _('Save as...'), '', self.doSaveAs)
+        self.act_export_png = cmn.Action(self, _('Export the decision tree to PNG...'), '', self.doExportPNG)
+        self.act_export_rules = cmn.Action(self, _('Export the rules list...'), '', self.doExportRules)
+        self.act_check_es = cmn.Action(self, _('Check the system'), 'icons/flag-blue.png', self.doCheckES, 'F8')
+        self.act_run_es = cmn.Action(self, _('Run the system'), 'icons/run.png', self.doRunES, 'F9')
+        self.act_about = cmn.Action(self, _('About...'), 'icons/info.png', lambda: AboutDialog().exec_())
         
         fileMenu.addAction(self.act_new_es)
         fileMenu.addAction(self.act_open_es)
@@ -291,14 +291,14 @@ class MainW(QtGui.QMainWindow):
         fileMenu.addAction(self.act_check_es)
         fileMenu.addAction(self.act_run_es)
         fileMenu.addSeparator()
-        fileMenu.addAction(cmn.Action(self, 'Выход', '', self.exitApp))
+        fileMenu.addAction(cmn.Action(self, _('Exit'), '', self.exitApp))
         
-        editMenu = menubar.addMenu('Редактирование')
-        self.act_undo = cmn.Action(self, 'Отменить', 'icons/undo.png', gstate.undo, 'Ctrl+Z')
-        self.act_redo = cmn.Action(self, 'Повторить', 'icons/redo.png', gstate.redo, 'Ctrl+Shift+Z')
-        self.act_goals = cmn.Action(self, 'Цели...', '', self.doGoals, 'Ctrl+G')
-        self.act_factors = cmn.Action(self, 'Факторы...', '', self.doFactors, 'Ctrl+F')
-        self.act_es_info = cmn.Action(self, 'Описание экспертной системы...', '', self.doEditDescription, 'Ctrl+D')
+        editMenu = menubar.addMenu(_('Edit'))
+        self.act_undo = cmn.Action(self, _('Undo'), 'icons/undo.png', gstate.undo, 'Ctrl+Z')
+        self.act_redo = cmn.Action(self, _('Redo'), 'icons/redo.png', gstate.redo, 'Ctrl+Shift+Z')
+        self.act_goals = cmn.Action(self, _('Goals...'), '', self.doGoals, 'Ctrl+G')
+        self.act_factors = cmn.Action(self, _('Factors...'), '', self.doFactors, 'Ctrl+F')
+        self.act_es_info = cmn.Action(self, _('Expert system description...'), '', self.doEditDescription, 'Ctrl+D')
         editMenu.addAction(self.act_undo)
         editMenu.addAction(self.act_redo)
         editMenu.addSeparator()
@@ -307,14 +307,14 @@ class MainW(QtGui.QMainWindow):
         editMenu.addSeparator()
         editMenu.addAction(self.act_es_info)
         
-        helpMenu = menubar.addMenu('Справка')
+        helpMenu = menubar.addMenu(_('Help'))
         helpMenu.addAction(self.act_about)
         
         toolbar = cmn.ToolBar([self.act_new_es, self.act_open_es, self.act_save_es, None,
                                self.act_undo, self.act_redo, None, self.act_check_es, self.act_run_es,
                                None, self.act_about])
         toolbar.setObjectName('tlb_main')
-        toolbar.setWindowTitle('Панель инструментов')
+        toolbar.setWindowTitle(_('Toolbar'))
         self.addToolBar(toolbar)
         
         gstate.on_update = self.updateUI
@@ -324,7 +324,7 @@ class MainW(QtGui.QMainWindow):
     def closingCheck(self):
         if gstate.saved:
             return True
-        ans = QtGui.QMessageBox.question(self, kProgramName, 'Сохранить изменения в экспертной системе "%s"?' % gstate.getName(), 
+        ans = QtGui.QMessageBox.question(self, kProgramName, _('Save changes in expert system "%s"?') % gstate.getName(), 
                                          QtGui.QMessageBox.Yes | QtGui.QMessageBox.No | QtGui.QMessageBox.Cancel, 
                                          QtGui.QMessageBox.Yes)
         if ans == QtGui.QMessageBox.No:
@@ -361,7 +361,7 @@ class MainW(QtGui.QMainWindow):
         try:
             gstate.loadFromFile(fname)
         except:
-            QtGui.QMessageBox.critical(self, kProgramName, 'Ошибка открытия файла "%s"' % fname)
+            QtGui.QMessageBox.critical(self, kProgramName, _('An error occurred while opening file "%s"') % fname)
             gstate.resetState()
             raise
         self.resetUI()
@@ -369,7 +369,7 @@ class MainW(QtGui.QMainWindow):
     def doOpen(self):
         if not self.closingCheck():
             return
-        fname = cmn.getOpenFileName(self, 'es', 'Открыть файл', 'Expert System Files (*.es)')
+        fname = cmn.getOpenFileName(self, 'es', _('Open File'), 'Expert System Files (*.es)')
         if fname:
             self.doOpenRaw(fname)
     
@@ -377,7 +377,7 @@ class MainW(QtGui.QMainWindow):
         try:
             gstate.saveToFile(fname)
         except:
-            QtGui.QMessageBox.critical(self, kProgramName, 'Ошибка записи в файл "%s"' % fname)
+            QtGui.QMessageBox.critical(self, kProgramName, _('An error occurred while writing to file "%s"') % fname)
             raise
                 
     def doSave(self):
@@ -387,7 +387,7 @@ class MainW(QtGui.QMainWindow):
         return self.doSaveAs()
         
     def doSaveAs(self):
-        fname = cmn.getOpenFileName(self, 'es', 'Сохранить в файл', 'Expert System Files (*.es)', True)
+        fname = cmn.getOpenFileName(self, 'es', _('Save to File'), 'Expert System Files (*.es)', True)
         if fname:
             self.doSaveRaw(fname)
             self.updateUI() # window title
@@ -395,7 +395,7 @@ class MainW(QtGui.QMainWindow):
         return False
     
     def doExportPNG(self):
-        fname = cmn.getOpenFileName(self, 'es', 'Экспорт в PNG', 'PNG Images (*.png)', True)
+        fname = cmn.getOpenFileName(self, 'es', _('Export to PNG'), 'PNG Images (*.png)', True)
         if not fname:
             return
         w, h = gstate.getExtents()
@@ -408,15 +408,15 @@ class MainW(QtGui.QMainWindow):
         
     def doExportRules(self):
         if self.check_results.doCheck() >= kCheckError:
-            QtGui.QMessageBox.warning(self, kProgramName, 'Экспертная система содержит ошибки. Устраните ошибки и попробуйте снова.')
+            QtGui.QMessageBox.warning(self, kProgramName, _('There are errors in the expert system. Fix the errors and try again.'))
             return            
         
         rules = []
         def gen(node, conds, ex_goals = []):
             if not node.children:
-                conds = ' И '.join('"%s" = "%s"' % c for c in conds) if conds else 'True'
+                conds = _(' AND ').join('"%s" = "%s"' % c for c in conds) if conds else 'True'
                 result = ', '.join(ex_goals + [node.content.name])
-                rule = 'ЕСЛИ %s\nТО %s;' % (conds, result)
+                rule = _('IF %s\nTHEN %s;') % (conds, result)
                 rules.append(rule)
                 return
             if node.content.getType() == kFactor:
@@ -426,8 +426,8 @@ class MainW(QtGui.QMainWindow):
                 gen(node.children[0], conds, ex_goals + [node.content.name])
                     
         gen(gstate.getRoot(), [])
-        data = 'Число правил: %d\n' % len(rules) + '\n'.join(rules)
-        cmn.showReport('Правила', data)            
+        data = _('Number of rules: %d\n') % len(rules) + '\n'.join(rules)
+        cmn.showReport(_('Rules'), data)            
         
     def doCheckES(self):
         self.check_results.doCheck()
@@ -437,7 +437,7 @@ class MainW(QtGui.QMainWindow):
         
     def doRunES(self):
         if self.check_results.doCheck() >= kCheckError:
-            QtGui.QMessageBox.warning(self, kProgramName, 'Экспертная система содержит ошибки. Устраните ошибки и попробуйте снова.')
+            QtGui.QMessageBox.warning(self, kProgramName, )
             return
         ESWindow().exec_()
                 

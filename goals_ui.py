@@ -11,24 +11,24 @@ import sys
 # returns None, if the name is ok
 def checkGoalName(name, allow_same=False):
     if not name:
-        return 'Название цели не может быть пустым'
+        return _('Goal name cannot be empty')
     if allow_same:
         return
     for g in gstate.goalsMap().values():
         if g.name == name:
-            return 'Цель с таким названием уже существует'
+            return _('A goal with this name already exists')
 
 class GoalDialog(cmn.Dialog):
     
     def __init__(self, obj = None):
-        cmn.Dialog.__init__(self, 'ESS', 'GoalAdd', 'Добавление цели' if obj is None else 'Редактирование цели')
+        cmn.Dialog.__init__(self, 'ESS', 'GoalAdd', _('Add a Goal') if obj is None else _('Edit Goal'))
         self.obj = obj
         self.edit_name = QtGui.QLineEdit()
         self.edit_descr = QtGui.QPlainTextEdit()
         self.new_obj = None
         layout = cmn.Table([
-            ('Название', self.edit_name),
-            ('Описание', self.edit_descr) 
+            (_('Name'), self.edit_name),
+            (_('Description'), self.edit_descr) 
         ])
         self.setDialogLayout(layout, self.doOk)
         if obj != None:
@@ -55,12 +55,12 @@ class GoalDialog(cmn.Dialog):
 class GoalsDialog(cmn.Dialog):
     
     def __init__(self, is_selecting=False):
-        cmn.Dialog.__init__(self, 'ESS', 'Goals', 'Выбор цели' if is_selecting else 'Цели')
+        cmn.Dialog.__init__(self, 'ESS', 'Goals', _('Select a Goal') if is_selecting else _('Goals'))
         self.is_selecting = is_selecting
         toolbar = cmn.ToolBar([
-            cmn.Action(self, 'Добавить цель (Ins)', 'icons/add.png', self.addGoal, 'Insert'),
-            cmn.Action(self, 'Редактировать цель (Enter)', 'icons/edit.png', self.editGoalAction),
-            cmn.Action(self, 'Удалить цель (Del)', 'icons/delete.png', self.removeGoal, 'Delete')
+            cmn.Action(self, _('Add a goal (Ins)'), 'icons/add.png', self.addGoal, 'Insert'),
+            cmn.Action(self, _('Edit goal (Enter)'), 'icons/edit.png', self.editGoalAction),
+            cmn.Action(self, _('Delete goal (Del)'), 'icons/delete.png', self.removeGoal, 'Delete')
         ])
         self.list = QtGui.QListWidget(self)
         self.list.itemActivated.connect(self.onActivateItem)
@@ -71,7 +71,7 @@ class GoalsDialog(cmn.Dialog):
     def doSelect(self):
         cur = self.list.currentItem()
         if not cur:
-            self.sbar.showMessage('Необходимо выбрать цель')
+            self.sbar.showMessage(_('You should select a goal first'))
             return
         self.selected_item = cur.obj
         self.accept()
@@ -114,7 +114,7 @@ class GoalsDialog(cmn.Dialog):
         if cur == None:
             return
         if gstate.hasInTree(cur.obj):
-            QtGui.QMessageBox.warning(self, kProgramName, 'Цель используется в дереве и не может быть удалена')
+            QtGui.QMessageBox.warning(self, kProgramName, _('This goal is used in the tree and cannot be deleted'))
             return
         gstate.deleteObject(cur.obj)
         self.loadList()

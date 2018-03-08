@@ -1,0 +1,1 @@
+python setup.py compile_catalog -d locale --domain Funduck

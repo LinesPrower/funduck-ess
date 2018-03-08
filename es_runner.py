@@ -48,24 +48,24 @@ class ESWindow(cmn.Dialog):
         
         self.resize(640, 480)
         self.setDialogLayout(layout, lambda: None, True, True, 
-                             extra_buttons = [('Начать сначала (F2)', self.doRestart)], autodefault = False)
+                             extra_buttons = [(_('Restart (F2)'), self.doRestart)], autodefault = False)
         self.cur_node = gstate.getRoot()
         self.updateUI()
         
     
     def updateUI(self):
         cur = self.cur_node.content
-        msg = 'Ceaнс завершён'
+        msg = _('Session is over')
         if not cur:
-            text = '<span style="color:red;">%s</span>' % 'Достигнут незавершённый узел'
+            text = '<span style="color:red;">%s</span>' % _('Incomplete node reached')
             choices = []
         elif cur.getType() == kFactor:
             text = cur.name
             choices = cur.choices
-            msg = 'Используйте цифры на клавиатуре для быстрого выбора ответов'
+            msg = _('Use digit buttons on the keyboard to choose answers quickly')
         else:
             assert(cur.getType() == kGoal)
-            text = '<span style="color:green;">%s</span>' % 'Результат'
+            text = '<span style="color:green;">%s</span>' % _('Results')
             v = self.cur_node
             while True:
                 text += '<br/>%s<br/><span style="font-size:12pt;">%s</span>' % (v.content.name, v.content.descr)

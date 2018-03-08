@@ -12,15 +12,15 @@ class DescriptionDialog(cmn.Dialog):
     def __init__(self):
         self.edit_name = QtGui.QLineEdit(gstate.es_name)
         self.edit_descr = QtGui.QPlainTextEdit(gstate.es_descr)
-        cmn.Dialog.__init__(self, 'ESS', 'ESDescription', 'Описание экспертной системы')
-        layout = cmn.Table([ ('Название', self.edit_name), ('Описание', self.edit_descr) ])
+        cmn.Dialog.__init__(self, 'ESS', 'ESDescription', _('Expert system description'))
+        layout = cmn.Table([ (_('Name'), self.edit_name), (_('Description'), self.edit_descr) ])
         self.setDialogLayout(layout, self.doOk)
         
     def doOk(self):
         name = self.edit_name.text().strip()
         descr = self.edit_descr.toPlainText()
         if not name:
-            self.sbar.showMessage('Название не может быть пустым')
+            self.sbar.showMessage(_('Name cannot be empty'))
             return
         gstate.modifyMetadata()
         gstate.es_name = name

@@ -1,0 +1,444 @@
+# Russian translations for UNKNOWN.
+# Copyright (C) 2018 ORGANIZATION
+# This file is distributed under the same license as the UNKNOWN project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2018.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: UNKNOWN 0.0.0\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2018-03-08 14:19+0500\n"
+"PO-Revision-Date: 2018-03-08 11:52+0500\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: ru\n"
+"Language-Team: ru <LL@li.org>\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.5.3\n"
+
+#: Shell.py:29
+msgid "Copy"
+msgstr "Копировать"
+
+#: Shell.py:30
+msgid "Paste"
+msgstr "Вставить"
+
+#: Shell.py:91 factors_ui.py:132
+msgid "Select a factor"
+msgstr "Выбрать фактор"
+
+#: Shell.py:92
+msgid "Select a goal"
+msgstr "Выбрать цель"
+
+#: Shell.py:94
+msgid "Add an extra goal"
+msgstr "Добавить дополнительную цель"
+
+#: Shell.py:102
+msgid "Edit factor"
+msgstr "Редактировать фактор"
+
+#: Shell.py:102
+msgid "Edit goal"
+msgstr "Редактировать цель"
+
+#: Shell.py:272
+msgid "File"
+msgstr "Файл"
+
+#: Shell.py:273
+msgid "New expert system"
+msgstr "Новая экспертная система"
+
+#: Shell.py:274
+msgid "Open..."
+msgstr "Открыть..."
+
+#: Shell.py:275
+msgid "Save"
+msgstr "Сохранить"
+
+#: Shell.py:276
+msgid "Save as..."
+msgstr "Сохранить как..."
+
+#: Shell.py:277
+msgid "Export the decision tree to PNG..."
+msgstr "Экспорт дерева решений в PNG..."
+
+#: Shell.py:278
+msgid "Export the rules list..."
+msgstr "Экспорт списка правил..."
+
+#: Shell.py:279
+msgid "Check the system"
+msgstr "Проверить систему"
+
+#: Shell.py:280
+msgid "Run the system"
+msgstr "Запустить систему"
+
+#: Shell.py:281
+msgid "About..."
+msgstr "О программе..."
+
+#: Shell.py:294
+msgid "Exit"
+msgstr "Выход"
+
+#: Shell.py:296
+msgid "Edit"
+msgstr "Редактирование"
+
+#: Shell.py:297
+msgid "Undo"
+msgstr "Отменить"
+
+#: Shell.py:298
+msgid "Redo"
+msgstr "Повторить"
+
+#: Shell.py:299
+msgid "Goals..."
+msgstr "Цели..."
+
+#: Shell.py:300
+msgid "Factors..."
+msgstr "Факторы..."
+
+#: Shell.py:301
+msgid "Expert system description..."
+msgstr "Описание экспертной системы..."
+
+#: Shell.py:310
+msgid "Help"
+msgstr "Справка"
+
+#: Shell.py:317
+msgid "Toolbar"
+msgstr "Панель инструментов"
+
+#: Shell.py:327
+#, python-format
+msgid "Save changes in expert system \"%s\"?"
+msgstr "Сохранить изменения в экспертной системе \"%s\"?"
+
+#: Shell.py:364
+#, python-format
+msgid "An error occurred while opening file \"%s\""
+msgstr "Ошибка открытия файла \"%s\""
+
+#: Shell.py:372
+msgid "Open File"
+msgstr "Открыть файл"
+
+#: Shell.py:380
+#, python-format
+msgid "An error occurred while writing to file \"%s\""
+msgstr "Ошибка записи в файл \"%s\""
+
+#: Shell.py:390
+msgid "Save to File"
+msgstr "Ошибка записи в файл \"%s\""
+
+#: Shell.py:398
+msgid "Export to PNG"
+msgstr "Экспорт в PNG"
+
+#: Shell.py:411
+msgid "There are errors in the expert system. Fix the errors and try again."
+msgstr "Экспертная система содержит ошибки. Устраните ошибки и попробуйте снова."
+
+#: Shell.py:417
+msgid " AND "
+msgstr " И "
+
+#: Shell.py:419
+#, python-format
+msgid ""
+"IF %s\n"
+"THEN %s;"
+msgstr ""
+"ЕСЛИ %s\n"
+"ТО %s;"
+
+#: Shell.py:429
+#, python-format
+msgid "Number of rules: %d\n"
+msgstr "Число правил: %d\n"
+
+#: Shell.py:430
+msgid "Rules"
+msgstr "Правила"
+
+#: about_ui.py:14
+#, python-format
+msgid ""
+"<b>%s - An expert system shell</b><br/>Version %s\n"
+"    <br/>\n"
+"    Copyright © 2018 Damir Akhmetzyanov (linesprower@gmail.com) \n"
+"    <br/>\n"
+"    <br/>\n"
+"    This software is free and distributed under the terms and conditions "
+"of\n"
+"    GNU GPL version 3.\n"
+"    <br/>\n"
+"    <br/>\n"
+"    This program uses icons from the \n"
+"    <a href=\"http://p.yusukekamiyamane.com/index.html.en\">Fugue "
+"Icons</a>\n"
+"    set by Yusuke Kamiyamane licensed under <a "
+"href=\"https://creativecommons.org/licenses/by/3.0/\">CC BY 3.0</a>\n"
+"    <br/>\n"
+"    <br/>\n"
+"    The \"Duckling\" logo by <a "
+"href=\"https://smashicons.com/\">SmashIcons</a> \n"
+"    from <a href=\"www.flaticon.com\">www.flaticon.com</a> \n"
+"    "
+msgstr ""
+
+#: about_ui.py:33
+#, python-format
+msgid "About %s"
+msgstr ""
+
+#: about_ui.py:44
+msgid "View license text"
+msgstr ""
+
+#: about_ui.py:49
+msgid "License Agreement"
+msgstr ""
+
+#: checker.py:18
+msgid "ES Check Results"
+msgstr "Результаты проверки системы"
+
+#: checker.py:57
+msgid "Incomplete node"
+msgstr "Незавершённый узел"
+
+#: checker.py:66
+#, python-format
+msgid "Factor \"%s\" is used more than once in the same branch"
+msgstr "Фактор \"%s\" используется более одного раза в одной ветке дерева"
+
+#: checker.py:78
+#, python-format
+msgid "Target \"%s\" is not used"
+msgstr "Цель \"%s\" не использована"
+
+#: checker.py:83
+#, python-format
+msgid "Factor \"%s\" is not used"
+msgstr "Фактор \"%s\" не использован"
+
+#: checker.py:86
+msgid "No problems detected"
+msgstr "Проблем не обнаружено"
+
+#: common.py:141
+msgid "Delete"
+msgstr "Удалить"
+
+#: common.py:273
+msgid "Close"
+msgstr "Закрыть"
+
+#: common.py:276
+msgid "Cancel"
+msgstr "Отмена"
+
+#: description_ui.py:15
+msgid "Expert system description"
+msgstr "Описание экспертной системы"
+
+#: description_ui.py:16 factors_ui.py:43 goals_ui.py:30
+msgid "Name"
+msgstr "Название"
+
+#: description_ui.py:16 goals_ui.py:31
+msgid "Description"
+msgstr "Описание"
+
+#: description_ui.py:23
+msgid "Name cannot be empty"
+msgstr "Название не может быть пустым"
+
+#: es_runner.py:51
+msgid "Restart (F2)"
+msgstr "Начать сначала (F2)"
+
+#: es_runner.py:58
+msgid "Session is over"
+msgstr "Ceaнс завершён"
+
+#: es_runner.py:60
+msgid "Incomplete node reached"
+msgstr "Достигнут незавершённый узел"
+
+#: es_runner.py:65
+msgid "Use digit buttons on the keyboard to choose answers quickly"
+msgstr "Используйте цифры на клавиатуре для быстрого выбора ответов"
+
+#: es_runner.py:68
+msgid "Results"
+msgstr "Результат"
+
+#: factors_ui.py:15
+msgid "Factor name cannot be empty"
+msgstr "Название фактора не может быть пустым"
+
+#: factors_ui.py:20
+msgid "Factor with this name already exists"
+msgstr "Фактор с таким названием уже существует"
+
+#: factors_ui.py:25
+msgid "Add a Factor"
+msgstr "Добавление фактора"
+
+#: factors_ui.py:25
+msgid "Edit Factor"
+msgstr "Редактирование фактора"
+
+#: factors_ui.py:36
+msgid "Values"
+msgstr "Значения"
+
+#: factors_ui.py:38
+msgid "Binary"
+msgstr "Бинарный"
+
+#: factors_ui.py:39
+msgid "Text"
+msgstr "Текстовый"
+
+#: factors_ui.py:44
+msgid "Type"
+msgstr "Тип фактора"
+
+#: factors_ui.py:93
+msgid "A factor should have at least two values"
+msgstr "Фактор должен иметь хотя бы два значения"
+
+#: factors_ui.py:132
+msgid "Factors"
+msgstr "Факторы"
+
+#: factors_ui.py:135
+msgid "Add a factor (Ins)"
+msgstr "Добавить фактор (Ins)"
+
+#: factors_ui.py:136
+msgid "Edit factor (Enter)"
+msgstr "Редактировать фактор (Enter)"
+
+#: factors_ui.py:137
+msgid "Delete factor (Del)"
+msgstr "Удалить фактор (Del)"
+
+#: factors_ui.py:148
+msgid "You should select a factor first"
+msgstr "Необходимо выбрать фактор"
+
+#: factors_ui.py:191
+msgid "This factor is used in the tree and cannot be deleted"
+msgstr "Фактор используется в дереве и не может быть удалён"
+
+#: goals_ui.py:14
+msgid "Goal name cannot be empty"
+msgstr "Название цели не может быть пустым"
+
+#: goals_ui.py:19
+msgid "A goal with this name already exists"
+msgstr "Цель с таким названием уже существует"
+
+#: goals_ui.py:24
+msgid "Add a Goal"
+msgstr "Добавление цели"
+
+#: goals_ui.py:24
+msgid "Edit Goal"
+msgstr "Редактирование цели"
+
+#: goals_ui.py:58
+msgid "Select a Goal"
+msgstr "Выбор цели"
+
+#: goals_ui.py:58
+msgid "Goals"
+msgstr "Цели"
+
+#: goals_ui.py:61
+msgid "Add a goal (Ins)"
+msgstr "Добавить цель (Ins)"
+
+#: goals_ui.py:62
+msgid "Edit goal (Enter)"
+msgstr "Редактировать цель (Enter)"
+
+#: goals_ui.py:63
+msgid "Delete goal (Del)"
+msgstr "Удалить цель (Del)"
+
+#: goals_ui.py:74
+msgid "You should select a goal first"
+msgstr "Необходимо выбрать цель"
+
+#: goals_ui.py:117
+msgid "This goal is used in the tree and cannot be deleted"
+msgstr "Цель используется в дереве и не может быть удалена"
+
+#: objects.py:6
+msgid "Expert system"
+msgstr "Экспертная система"
+
+#: objects.py:44
+msgid "Unnamed"
+msgstr "Без имени"
+
+#: objects.py:309
+msgid "Yes"
+msgstr "Да"
+
+#: objects.py:309
+msgid "No"
+msgstr "Нет"
+
+#: objects.py:377
+msgid "Select a factor or goal"
+msgstr "Выберите фактор или цель"
+
+#~ msgid ""
+#~ "<b>%s - An expert system shell</b><br/>Version %s\n"
+#~ "    <br/>\n"
+#~ "    Copyright © 2018 Damir Akhmetzyanov (linesprower@gmail.com) \n"
+#~ "    <br/>\n"
+#~ "    <br/>\n"
+#~ "    This software is free and "
+#~ "distributed under the terms and "
+#~ "conditions of\n"
+#~ "    GNU GPL version 3.\n"
+#~ "    <br/>\n"
+#~ "    <br/>\n"
+#~ "    This program uses icon from the \n"
+#~ "    <a "
+#~ "href=\"http://p.yusukekamiyamane.com/index.html.en\">Fugue "
+#~ "Icons</a>\n"
+#~ "    set by Yusuke Kamiyamane licensed"
+#~ " under <a "
+#~ "href=\"https://creativecommons.org/licenses/by/3.0/\">CC BY "
+#~ "3.0</a>\n"
+#~ "    <br/>\n"
+#~ "    <br/>\n"
+#~ "    The \"Duckling\" logo by <a "
+#~ "href=\"https://smashicons.com/\">SmashIcons</a> \n"
+#~ "    from <a href=\"www.flaticon.com\">www.flaticon.com</a> \n"
+#~ "    "
+#~ msgstr ""
+

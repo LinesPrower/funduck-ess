@@ -10,26 +10,27 @@ import io
 
 class AboutDialog(cmn.Dialog):
     
-    about_text = '''<b>%s - Оболочка для экспертных систем</b><br/>Версия 1.0
+    version = '1.0'
+    about_text = _('''<b>%s - An expert system shell</b><br/>Version %s
     <br/>
-    Copyright © 2018 Ахметзянов Дамир (linesprower@gmail.com) 
-    <br/>
-    <br/>
-    Данный программный продукт является свободным программным обеспечением
-    и распространяется по лицензии GNU GPL версии 3.
+    Copyright © 2018 Damir Akhmetzyanov (linesprower@gmail.com) 
     <br/>
     <br/>
-    Данный программный продукт использует пиктограммы из набора 
+    This software is free and distributed under the terms and conditions of
+    GNU GPL version 3.
+    <br/>
+    <br/>
+    This program uses icons from the 
     <a href="http://p.yusukekamiyamane.com/index.html.en">Fugue Icons</a>
-    от Yusuke Kamiyamane по лицензии <a href="https://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>
+    set by Yusuke Kamiyamane licensed under <a href="https://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>
     <br/>
     <br/>
-    Логотип "Duckling" от <a href="https://smashicons.com/">SmashIcons</a> 
-    с сайта <a href="www.flaticon.com">www.flaticon.com</a> 
-    ''' % kProgramName
+    The "Duckling" logo by <a href="https://smashicons.com/">SmashIcons</a> 
+    from <a href="www.flaticon.com">www.flaticon.com</a> 
+    ''') % (kProgramName, version)
     
     def __init__(self):
-        cmn.Dialog.__init__(self, 'ESS', 'AboutBox', 'О программе %s' % kProgramName)
+        cmn.Dialog.__init__(self, 'ESS', 'AboutBox', _('About %s') % kProgramName)
         self.setWindowIcon(cmn.GetIcon('icons/info.png'))
         icon = QtGui.QPixmap('icons/duckling.png')
         icon_lbl = QtGui.QLabel()
@@ -40,12 +41,12 @@ class AboutDialog(cmn.Dialog):
         icon_lbl = cmn.VBox([icon_lbl], align=cmn.kTopAlign)
         layout = cmn.HBox([icon_lbl, lbl], 15, 15)
         self.setDialogLayout(layout, lambda: None, has_statusbar=False, close_btn=True, 
-                             extra_buttons=[('Лицензионное соглашение', self.showLicense)])
+                             extra_buttons=[(_('View license text'), self.showLicense)])
         
     def showLicense(self):
         with io.open('LICENSE.txt', encoding='utf-8') as f:
             text = f.read()
-        cmn.showReport('Лицензионное соглашение', text)
+        cmn.showReport(_('License Agreement'), text)
 
 
 if __name__ == '__main__':

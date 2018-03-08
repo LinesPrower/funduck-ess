@@ -1,8 +1,9 @@
 from PyQt4 import QtCore, QtGui
 import os, io, json
+import common
 
 kProgramName = 'Funduck ESS'
-kDefaultESName = 'Экспертная система'
+kDefaultESName = _('Expert system')
 kDefaultESDescription = ''
 
 kGoal = 1
@@ -40,7 +41,7 @@ class State:
         if self.filename != None:
             t = os.path.split(self.filename)[1]
             return os.path.splitext(t)[0]
-        return 'Без имени'
+        return _('Unnamed')
 
     def getObject(self, ident):
         if ident in self.objMap:
@@ -305,7 +306,7 @@ class ESFactor(ESObject):
  
     @staticmethod
     def getBinaryChoices():
-        return ['Да', 'Нет']
+        return [_('Yes'), _('No')]
     
     
         
@@ -373,7 +374,7 @@ class ESNode(ESObject):
 
     font = QtGui.QFont("Arial", 10)
     font_metrics = QtGui.QFontMetrics(font)
-    kDefaultText = 'Выберите фактор или цель'
+    kDefaultText = _('Select a factor or goal')
     kHorizontalMargin = 5
     kItemVerticalMargin = 5
     kDiagramMargin = 10

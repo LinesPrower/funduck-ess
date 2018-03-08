@@ -1,6 +1,7 @@
 from distutils.core import setup
 import py2exe
 import os, glob
+from babel.messages import frontend as babel
 
 def find_data_files(source,target,patterns):
     """Locates the specified data-files and returns the matches
@@ -26,6 +27,10 @@ def find_data_files(source,target,patterns):
     return sorted(ret.items())
 
 setup(
+    cmdclass = {'compile_catalog': babel.compile_catalog,
+                'extract_messages': babel.extract_messages,
+                'init_catalog': babel.init_catalog,
+                'update_catalog': babel.update_catalog},
     windows=['Shell.py'], 
     zipfile='lib/library.zip', 
     options={"py2exe":{"includes":["sip"]}},

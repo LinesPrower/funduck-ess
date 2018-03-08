@@ -12,17 +12,17 @@ import sys
 # returns None, if the name is ok
 def checkFactorName(name, allow_same=False):
     if not name:
-        return 'Название фактора не может быть пустым'
+        return _('Factor name cannot be empty')
     if allow_same:
         return
     for g in gstate.factorsMap().values():
         if g.name == name:
-            return 'Фактор с таким названием уже существует'
+            return _('Factor with this name already exists')
 
 class FactorDialog(cmn.Dialog):
     
     def __init__(self, obj = None):
-        cmn.Dialog.__init__(self, 'ESS', 'FactorAdd', 'Добавление фактора' if obj is None else 'Редактирование фактора')
+        cmn.Dialog.__init__(self, 'ESS', 'FactorAdd', _('Add a Factor') if obj is None else _('Edit Factor'))
         self.init_done = False
         self.obj = obj
         self.edit_name = QtGui.QLineEdit()
@@ -33,15 +33,15 @@ class FactorDialog(cmn.Dialog):
             rb.setChecked(checked)
             return rb
         
-        self.edit_choices = cmn.Grid(['Значения'], [500], True)
+        self.edit_choices = cmn.Grid([_('Values')], [500], True)
         self.edit_choices.cellChanged.connect(self.onCellChanged)
-        self.rb_binary = make_rb('Бинарный', True)
-        self.rb_text = make_rb('Текстовый')
+        self.rb_binary = make_rb(_('Binary'), True)
+        self.rb_text = make_rb(_('Text'))
         
         self.new_obj = None
         layout = cmn.VBox([
-            cmn.Table([('Название', self.edit_name),
-                       ('Тип фактора', cmn.VBox([self.rb_binary, self.rb_text]) )]),
+            cmn.Table([(_('Name'), self.edit_name),
+                       (_('Type'), cmn.VBox([self.rb_binary, self.rb_text]) )]),
             self.edit_choices
         ])
         self.setDialogLayout(layout, self.doOk)
@@ -90,7 +90,7 @@ class FactorDialog(cmn.Dialog):
             choices = [self.get_choice(i) for i in range(self.edit_choices.rowCount())]
             choices = list(filter(None, choices))
         if len(choices) < 2:
-            err = 'Фактор должен иметь хотя бы два значения'
+            err = _('A factor should have at least two values')
         else:
             err = checkFactorName(name, self.obj != None)
         if err != None:
@@ -129,12 +129,12 @@ class FactorDialog(cmn.Dialog):
 class FactorsDialog(cmn.Dialog):
     
     def __init__(self, is_selecting=False):
-        cmn.Dialog.__init__(self, 'ESS', 'Factors', 'Выберите фактор' if is_selecting else 'Факторы')
+        cmn.Dialog.__init__(self, 'ESS', 'Factors', _('Select a factor') if is_selecting else _('Factors'))
         self.is_selecting = is_selecting
         toolbar = cmn.ToolBar([
-            cmn.Action(self, 'Добавить фактор (Ins)', 'icons/add.png', self.addFactor, 'Insert'),
-            cmn.Action(self, 'Редактировать фактор (Enter)', 'icons/edit.png', self.editFactorAction),
-            cmn.Action(self, 'Удалить фактор (Del)', 'icons/delete.png', self.removeFactor, 'Delete')
+            cmn.Action(self, _('Add a factor (Ins)'), 'icons/add.png', self.addFactor, 'Insert'),
+            cmn.Action(self, _('Edit factor (Enter)'), 'icons/edit.png', self.editFactorAction),
+            cmn.Action(self, _('Delete factor (Del)'), 'icons/delete.png', self.removeFactor, 'Delete')
         ])
         self.list = QtGui.QListWidget(self)
         self.list.itemActivated.connect(self.onActivateItem)
@@ -145,7 +145,7 @@ class FactorsDialog(cmn.Dialog):
     def doSelect(self):
         cur = self.list.currentItem()
         if not cur:
-            self.sbar.showMessage('Необходимо выбрать фактор')
+            self.sbar.showMessage(_('You should select a factor first'))
             return
         self.selected_item = cur.obj
         self.accept()
@@ -188,7 +188,7 @@ class FactorsDialog(cmn.Dialog):
         if cur == None:
             return
         if gstate.hasInTree(cur.obj):
-            QtGui.QMessageBox.warning(self, kProgramName, 'Фактор используется в дереве и не может быть удалён')
+            QtGui.QMessageBox.warning(self, kProgramName, _('This factor is used in the tree and cannot be deleted'))
             return
         gstate.deleteObject(cur.obj)
         self.loadList()

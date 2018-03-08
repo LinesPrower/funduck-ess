@@ -15,7 +15,7 @@ class CheckResultsPanel(QtGui.QDockWidget):
 
     def __init__(self, owner):
 
-        QtGui.QDockWidget.__init__(self, ' Результаты проверки системы')
+        QtGui.QDockWidget.__init__(self, _('ES Check Results'))
 
         self.owner = owner
         self.setObjectName('results_panel') # for state saving
@@ -54,7 +54,7 @@ class CheckResultsPanel(QtGui.QDockWidget):
         # check for incompleted nodes
         def f(node):
             if node.content == None:
-                addMsg('Незавершённый узел в дереве решений', kCheckError, node)
+                addMsg(_('Incomplete node'), kCheckError, node)
         gstate.getRoot().traverse(f)
         
         # check for duplicated factors
@@ -63,7 +63,7 @@ class CheckResultsPanel(QtGui.QDockWidget):
             content = node.content
             if content and content.getType() == kFactor:
                 if content in used_factors:
-                    addMsg('Фактор "%s" встречается более одного раза в одной ветке дерева' % content.name, kCheckError, node)
+                    addMsg(_('Factor "%s" is used more than once in the same branch') % content.name, kCheckError, node)
                     return
                 used_factors.add(content)
             for c in node.children:
@@ -75,15 +75,15 @@ class CheckResultsPanel(QtGui.QDockWidget):
         # check for unused goals
         for g in gstate.goalsMap().values():
             if not gstate.hasInTree(g):
-                addMsg('Цель "%s" не использована' % g.name, kCheckWarning)
+                addMsg(_('Target "%s" is not used') % g.name, kCheckWarning)
         
         # check for unused factors
         for f in gstate.factorsMap().values():
             if not gstate.hasInTree(f):
-                addMsg('Фактор "%s" не использован' % f.name, kCheckWarning)
+                addMsg(_('Factor "%s" is not used') % f.name, kCheckWarning)
                 
         if self.err_list.count() == 0:
-            addMsg('Проблем не обнаружено', kCheckOK)
+            addMsg(_('No problems detected'), kCheckOK)
             
         return self.severity
 

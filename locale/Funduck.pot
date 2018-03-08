@@ -1,0 +1,412 @@
+# Translations template for UNKNOWN.
+# Copyright (C) 2018 ORGANIZATION
+# This file is distributed under the same license as the UNKNOWN project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2018.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: UNKNOWN 0.0.0\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2018-03-08 14:19+0500\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.5.3\n"
+
+#: Shell.py:29
+msgid "Copy"
+msgstr ""
+
+#: Shell.py:30
+msgid "Paste"
+msgstr ""
+
+#: Shell.py:91 factors_ui.py:132
+msgid "Select a factor"
+msgstr ""
+
+#: Shell.py:92
+msgid "Select a goal"
+msgstr ""
+
+#: Shell.py:94
+msgid "Add an extra goal"
+msgstr ""
+
+#: Shell.py:102
+msgid "Edit factor"
+msgstr ""
+
+#: Shell.py:102
+msgid "Edit goal"
+msgstr ""
+
+#: Shell.py:272
+msgid "File"
+msgstr ""
+
+#: Shell.py:273
+msgid "New expert system"
+msgstr ""
+
+#: Shell.py:274
+msgid "Open..."
+msgstr ""
+
+#: Shell.py:275
+msgid "Save"
+msgstr ""
+
+#: Shell.py:276
+msgid "Save as..."
+msgstr ""
+
+#: Shell.py:277
+msgid "Export the decision tree to PNG..."
+msgstr ""
+
+#: Shell.py:278
+msgid "Export the rules list..."
+msgstr ""
+
+#: Shell.py:279
+msgid "Check the system"
+msgstr ""
+
+#: Shell.py:280
+msgid "Run the system"
+msgstr ""
+
+#: Shell.py:281
+msgid "About..."
+msgstr ""
+
+#: Shell.py:294
+msgid "Exit"
+msgstr ""
+
+#: Shell.py:296
+msgid "Edit"
+msgstr ""
+
+#: Shell.py:297
+msgid "Undo"
+msgstr ""
+
+#: Shell.py:298
+msgid "Redo"
+msgstr ""
+
+#: Shell.py:299
+msgid "Goals..."
+msgstr ""
+
+#: Shell.py:300
+msgid "Factors..."
+msgstr ""
+
+#: Shell.py:301
+msgid "Expert system description..."
+msgstr ""
+
+#: Shell.py:310
+msgid "Help"
+msgstr ""
+
+#: Shell.py:317
+msgid "Toolbar"
+msgstr ""
+
+#: Shell.py:327
+#, python-format
+msgid "Save changes in expert system \"%s\"?"
+msgstr ""
+
+#: Shell.py:364
+#, python-format
+msgid "An error occurred while opening file \"%s\""
+msgstr ""
+
+#: Shell.py:372
+msgid "Open File"
+msgstr ""
+
+#: Shell.py:380
+#, python-format
+msgid "An error occurred while writing to file \"%s\""
+msgstr ""
+
+#: Shell.py:390
+msgid "Save to File"
+msgstr ""
+
+#: Shell.py:398
+msgid "Export to PNG"
+msgstr ""
+
+#: Shell.py:411
+msgid "There are errors in the expert system. Fix the errors and try again."
+msgstr ""
+
+#: Shell.py:417
+msgid " AND "
+msgstr ""
+
+#: Shell.py:419
+#, python-format
+msgid ""
+"IF %s\n"
+"THEN %s;"
+msgstr ""
+
+#: Shell.py:429
+#, python-format
+msgid "Number of rules: %d\n"
+msgstr ""
+
+#: Shell.py:430
+msgid "Rules"
+msgstr ""
+
+#: about_ui.py:14
+#, python-format
+msgid ""
+"<b>%s - An expert system shell</b><br/>Version %s\n"
+"    <br/>\n"
+"    Copyright © 2018 Damir Akhmetzyanov (linesprower@gmail.com) \n"
+"    <br/>\n"
+"    <br/>\n"
+"    This software is free and distributed under the terms and conditions "
+"of\n"
+"    GNU GPL version 3.\n"
+"    <br/>\n"
+"    <br/>\n"
+"    This program uses icons from the \n"
+"    <a href=\"http://p.yusukekamiyamane.com/index.html.en\">Fugue "
+"Icons</a>\n"
+"    set by Yusuke Kamiyamane licensed under <a "
+"href=\"https://creativecommons.org/licenses/by/3.0/\">CC BY 3.0</a>\n"
+"    <br/>\n"
+"    <br/>\n"
+"    The \"Duckling\" logo by <a "
+"href=\"https://smashicons.com/\">SmashIcons</a> \n"
+"    from <a href=\"www.flaticon.com\">www.flaticon.com</a> \n"
+"    "
+msgstr ""
+
+#: about_ui.py:33
+#, python-format
+msgid "About %s"
+msgstr ""
+
+#: about_ui.py:44
+msgid "View license text"
+msgstr ""
+
+#: about_ui.py:49
+msgid "License Agreement"
+msgstr ""
+
+#: checker.py:18
+msgid "ES Check Results"
+msgstr ""
+
+#: checker.py:57
+msgid "Incomplete node"
+msgstr ""
+
+#: checker.py:66
+#, python-format
+msgid "Factor \"%s\" is used more than once in the same branch"
+msgstr ""
+
+#: checker.py:78
+#, python-format
+msgid "Target \"%s\" is not used"
+msgstr ""
+
+#: checker.py:83
+#, python-format
+msgid "Factor \"%s\" is not used"
+msgstr ""
+
+#: checker.py:86
+msgid "No problems detected"
+msgstr ""
+
+#: common.py:141
+msgid "Delete"
+msgstr ""
+
+#: common.py:273
+msgid "Close"
+msgstr ""
+
+#: common.py:276
+msgid "Cancel"
+msgstr ""
+
+#: description_ui.py:15
+msgid "Expert system description"
+msgstr ""
+
+#: description_ui.py:16 factors_ui.py:43 goals_ui.py:30
+msgid "Name"
+msgstr ""
+
+#: description_ui.py:16 goals_ui.py:31
+msgid "Description"
+msgstr ""
+
+#: description_ui.py:23
+msgid "Name cannot be empty"
+msgstr ""
+
+#: es_runner.py:51
+msgid "Restart (F2)"
+msgstr ""
+
+#: es_runner.py:58
+msgid "Session is over"
+msgstr ""
+
+#: es_runner.py:60
+msgid "Incomplete node reached"
+msgstr ""
+
+#: es_runner.py:65
+msgid "Use digit buttons on the keyboard to choose answers quickly"
+msgstr ""
+
+#: es_runner.py:68
+msgid "Results"
+msgstr ""
+
+#: factors_ui.py:15
+msgid "Factor name cannot be empty"
+msgstr ""
+
+#: factors_ui.py:20
+msgid "Factor with this name already exists"
+msgstr ""
+
+#: factors_ui.py:25
+msgid "Add a Factor"
+msgstr ""
+
+#: factors_ui.py:25
+msgid "Edit Factor"
+msgstr ""
+
+#: factors_ui.py:36
+msgid "Values"
+msgstr ""
+
+#: factors_ui.py:38
+msgid "Binary"
+msgstr ""
+
+#: factors_ui.py:39
+msgid "Text"
+msgstr ""
+
+#: factors_ui.py:44
+msgid "Type"
+msgstr ""
+
+#: factors_ui.py:93
+msgid "A factor should have at least two values"
+msgstr ""
+
+#: factors_ui.py:132
+msgid "Factors"
+msgstr ""
+
+#: factors_ui.py:135
+msgid "Add a factor (Ins)"
+msgstr ""
+
+#: factors_ui.py:136
+msgid "Edit factor (Enter)"
+msgstr ""
+
+#: factors_ui.py:137
+msgid "Delete factor (Del)"
+msgstr ""
+
+#: factors_ui.py:148
+msgid "You should select a factor first"
+msgstr ""
+
+#: factors_ui.py:191
+msgid "This factor is used in the tree and cannot be deleted"
+msgstr ""
+
+#: goals_ui.py:14
+msgid "Goal name cannot be empty"
+msgstr ""
+
+#: goals_ui.py:19
+msgid "A goal with this name already exists"
+msgstr ""
+
+#: goals_ui.py:24
+msgid "Add a Goal"
+msgstr ""
+
+#: goals_ui.py:24
+msgid "Edit Goal"
+msgstr ""
+
+#: goals_ui.py:58
+msgid "Select a Goal"
+msgstr ""
+
+#: goals_ui.py:58
+msgid "Goals"
+msgstr ""
+
+#: goals_ui.py:61
+msgid "Add a goal (Ins)"
+msgstr ""
+
+#: goals_ui.py:62
+msgid "Edit goal (Enter)"
+msgstr ""
+
+#: goals_ui.py:63
+msgid "Delete goal (Del)"
+msgstr ""
+
+#: goals_ui.py:74
+msgid "You should select a goal first"
+msgstr ""
+
+#: goals_ui.py:117
+msgid "This goal is used in the tree and cannot be deleted"
+msgstr ""
+
+#: objects.py:6
+msgid "Expert system"
+msgstr ""
+
+#: objects.py:44
+msgid "Unnamed"
+msgstr ""
+
+#: objects.py:309
+msgid "Yes"
+msgstr ""
+
+#: objects.py:309
+msgid "No"
+msgstr ""
+
+#: objects.py:377
+msgid "Select a factor or goal"
+msgstr ""
+
