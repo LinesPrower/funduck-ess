@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: UNKNOWN 0.0.0\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2018-03-08 14:19+0500\n"
+"POT-Creation-Date: 2018-03-08 22:23+0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,162 +17,166 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.5.3\n"
 
-#: Shell.py:29
+#: Shell.py:49
 msgid "Copy"
 msgstr ""
 
-#: Shell.py:30
+#: Shell.py:50
 msgid "Paste"
 msgstr ""
 
-#: Shell.py:91 factors_ui.py:132
+#: Shell.py:111 factors_ui.py:148
 msgid "Select a factor"
 msgstr ""
 
-#: Shell.py:92
+#: Shell.py:112
 msgid "Select a goal"
 msgstr ""
 
-#: Shell.py:94
+#: Shell.py:114
 msgid "Add an extra goal"
 msgstr ""
 
-#: Shell.py:102
+#: Shell.py:116
+msgid "Clear node"
+msgstr ""
+
+#: Shell.py:124
 msgid "Edit factor"
 msgstr ""
 
-#: Shell.py:102
+#: Shell.py:124
 msgid "Edit goal"
 msgstr ""
 
-#: Shell.py:272
+#: Shell.py:304
 msgid "File"
 msgstr ""
 
-#: Shell.py:273
+#: Shell.py:305
 msgid "New expert system"
 msgstr ""
 
-#: Shell.py:274
+#: Shell.py:306
 msgid "Open..."
 msgstr ""
 
-#: Shell.py:275
+#: Shell.py:307
 msgid "Save"
 msgstr ""
 
-#: Shell.py:276
+#: Shell.py:308
 msgid "Save as..."
 msgstr ""
 
-#: Shell.py:277
+#: Shell.py:309
 msgid "Export the decision tree to PNG..."
 msgstr ""
 
-#: Shell.py:278
+#: Shell.py:310
 msgid "Export the rules list..."
 msgstr ""
 
-#: Shell.py:279
+#: Shell.py:311
 msgid "Check the system"
 msgstr ""
 
-#: Shell.py:280
+#: Shell.py:312
 msgid "Run the system"
 msgstr ""
 
-#: Shell.py:281
+#: Shell.py:313
 msgid "About..."
 msgstr ""
 
-#: Shell.py:294
+#: Shell.py:326
 msgid "Exit"
 msgstr ""
 
-#: Shell.py:296
+#: Shell.py:328
 msgid "Edit"
 msgstr ""
 
-#: Shell.py:297
+#: Shell.py:329
 msgid "Undo"
 msgstr ""
 
-#: Shell.py:298
+#: Shell.py:330
 msgid "Redo"
 msgstr ""
 
-#: Shell.py:299
+#: Shell.py:331
 msgid "Goals..."
 msgstr ""
 
-#: Shell.py:300
+#: Shell.py:332
 msgid "Factors..."
 msgstr ""
 
-#: Shell.py:301
+#: Shell.py:333
 msgid "Expert system description..."
 msgstr ""
 
-#: Shell.py:310
+#: Shell.py:342
 msgid "Help"
 msgstr ""
 
-#: Shell.py:317
+#: Shell.py:349
 msgid "Toolbar"
 msgstr ""
 
-#: Shell.py:327
+#: Shell.py:359
 #, python-format
 msgid "Save changes in expert system \"%s\"?"
 msgstr ""
 
-#: Shell.py:364
+#: Shell.py:396
 #, python-format
 msgid "An error occurred while opening file \"%s\""
 msgstr ""
 
-#: Shell.py:372
+#: Shell.py:404
 msgid "Open File"
 msgstr ""
 
-#: Shell.py:380
+#: Shell.py:412
 #, python-format
 msgid "An error occurred while writing to file \"%s\""
 msgstr ""
 
-#: Shell.py:390
+#: Shell.py:422
 msgid "Save to File"
 msgstr ""
 
-#: Shell.py:398
+#: Shell.py:430
 msgid "Export to PNG"
 msgstr ""
 
-#: Shell.py:411
+#: Shell.py:443
 msgid "There are errors in the expert system. Fix the errors and try again."
 msgstr ""
 
-#: Shell.py:417
+#: Shell.py:449
 msgid " AND "
 msgstr ""
 
-#: Shell.py:419
+#: Shell.py:451
 #, python-format
 msgid ""
 "IF %s\n"
 "THEN %s;"
 msgstr ""
 
-#: Shell.py:429
+#: Shell.py:461
 #, python-format
 msgid "Number of rules: %d\n"
 msgstr ""
 
-#: Shell.py:430
+#: Shell.py:462
 msgid "Rules"
 msgstr ""
 
-#: about_ui.py:14
+#: about_ui.py:29
 #, python-format
 msgid ""
 "<b>%s - An expert system shell</b><br/>Version %s\n"
@@ -180,9 +184,10 @@ msgid ""
 "    Copyright © 2018 Damir Akhmetzyanov (linesprower@gmail.com) \n"
 "    <br/>\n"
 "    <br/>\n"
-"    This software is free and distributed under the terms and conditions "
-"of\n"
-"    GNU GPL version 3.\n"
+"    Funduck ESS is free software: you can redistribute it and/or modify\n"
+"    it under the terms of the GNU General Public License as published by\n"
+"    the Free Software Foundation, either version 3 of the License, or\n"
+"    (at your option) any later version.\n"
 "    <br/>\n"
 "    <br/>\n"
 "    This program uses icons from the \n"
@@ -198,215 +203,219 @@ msgid ""
 "    "
 msgstr ""
 
-#: about_ui.py:33
+#: about_ui.py:50
 #, python-format
 msgid "About %s"
 msgstr ""
 
-#: about_ui.py:44
+#: about_ui.py:61
 msgid "View license text"
 msgstr ""
 
-#: about_ui.py:49
+#: about_ui.py:66
 msgid "License Agreement"
 msgstr ""
 
-#: checker.py:18
+#: checker.py:33
 msgid "ES Check Results"
 msgstr ""
 
-#: checker.py:57
+#: checker.py:72
 msgid "Incomplete node"
 msgstr ""
 
-#: checker.py:66
+#: checker.py:81
 #, python-format
 msgid "Factor \"%s\" is used more than once in the same branch"
 msgstr ""
 
-#: checker.py:78
+#: checker.py:93
 #, python-format
 msgid "Target \"%s\" is not used"
 msgstr ""
 
-#: checker.py:83
+#: checker.py:98
 #, python-format
 msgid "Factor \"%s\" is not used"
 msgstr ""
 
-#: checker.py:86
+#: checker.py:101
 msgid "No problems detected"
 msgstr ""
 
-#: common.py:141
+#: common.py:155
 msgid "Delete"
 msgstr ""
 
-#: common.py:273
+#: common.py:287
 msgid "Close"
 msgstr ""
 
-#: common.py:276
+#: common.py:290
 msgid "Cancel"
 msgstr ""
 
-#: description_ui.py:15
+#: description_ui.py:30
 msgid "Expert system description"
 msgstr ""
 
-#: description_ui.py:16 factors_ui.py:43 goals_ui.py:30
+#: description_ui.py:31 factors_ui.py:57 goals_ui.py:45
 msgid "Name"
 msgstr ""
 
-#: description_ui.py:16 goals_ui.py:31
+#: description_ui.py:31 goals_ui.py:46
 msgid "Description"
 msgstr ""
 
-#: description_ui.py:23
+#: description_ui.py:38
 msgid "Name cannot be empty"
 msgstr ""
 
-#: es_runner.py:51
+#: es_runner.py:65
 msgid "Restart (F2)"
 msgstr ""
 
-#: es_runner.py:58
+#: es_runner.py:72
 msgid "Session is over"
 msgstr ""
 
-#: es_runner.py:60
+#: es_runner.py:74
 msgid "Incomplete node reached"
 msgstr ""
 
-#: es_runner.py:65
+#: es_runner.py:79
 msgid "Use digit buttons on the keyboard to choose answers quickly"
 msgstr ""
 
-#: es_runner.py:68
+#: es_runner.py:82
 msgid "Results"
 msgstr ""
 
-#: factors_ui.py:15
+#: factors_ui.py:29
 msgid "Factor name cannot be empty"
 msgstr ""
 
-#: factors_ui.py:20
+#: factors_ui.py:34
 msgid "Factor with this name already exists"
 msgstr ""
 
-#: factors_ui.py:25
+#: factors_ui.py:39
 msgid "Add a Factor"
 msgstr ""
 
-#: factors_ui.py:25
+#: factors_ui.py:39
 msgid "Edit Factor"
 msgstr ""
 
-#: factors_ui.py:36
+#: factors_ui.py:50
 msgid "Values"
 msgstr ""
 
-#: factors_ui.py:38
+#: factors_ui.py:52
 msgid "Binary"
 msgstr ""
 
-#: factors_ui.py:39
+#: factors_ui.py:53
 msgid "Text"
 msgstr ""
 
-#: factors_ui.py:44
+#: factors_ui.py:58
 msgid "Type"
 msgstr ""
 
-#: factors_ui.py:93
+#: factors_ui.py:107
 msgid "A factor should have at least two values"
 msgstr ""
 
-#: factors_ui.py:132
-msgid "Factors"
-msgstr ""
-
-#: factors_ui.py:135
-msgid "Add a factor (Ins)"
-msgstr ""
-
-#: factors_ui.py:136
-msgid "Edit factor (Enter)"
-msgstr ""
-
-#: factors_ui.py:137
-msgid "Delete factor (Del)"
+#: factors_ui.py:109
+msgid "All values must be different"
 msgstr ""
 
 #: factors_ui.py:148
+msgid "Factors"
+msgstr ""
+
+#: factors_ui.py:151
+msgid "Add a factor (Ins)"
+msgstr ""
+
+#: factors_ui.py:152
+msgid "Edit factor (Enter)"
+msgstr ""
+
+#: factors_ui.py:153
+msgid "Delete factor (Del)"
+msgstr ""
+
+#: factors_ui.py:164
 msgid "You should select a factor first"
 msgstr ""
 
-#: factors_ui.py:191
+#: factors_ui.py:207
 msgid "This factor is used in the tree and cannot be deleted"
 msgstr ""
 
-#: goals_ui.py:14
+#: goals_ui.py:29
 msgid "Goal name cannot be empty"
 msgstr ""
 
-#: goals_ui.py:19
+#: goals_ui.py:34
 msgid "A goal with this name already exists"
 msgstr ""
 
-#: goals_ui.py:24
+#: goals_ui.py:39
 msgid "Add a Goal"
 msgstr ""
 
-#: goals_ui.py:24
+#: goals_ui.py:39
 msgid "Edit Goal"
 msgstr ""
 
-#: goals_ui.py:58
+#: goals_ui.py:73
 msgid "Select a Goal"
 msgstr ""
 
-#: goals_ui.py:58
+#: goals_ui.py:73
 msgid "Goals"
 msgstr ""
 
-#: goals_ui.py:61
+#: goals_ui.py:76
 msgid "Add a goal (Ins)"
 msgstr ""
 
-#: goals_ui.py:62
+#: goals_ui.py:77
 msgid "Edit goal (Enter)"
 msgstr ""
 
-#: goals_ui.py:63
+#: goals_ui.py:78
 msgid "Delete goal (Del)"
 msgstr ""
 
-#: goals_ui.py:74
+#: goals_ui.py:89
 msgid "You should select a goal first"
 msgstr ""
 
-#: goals_ui.py:117
+#: goals_ui.py:132
 msgid "This goal is used in the tree and cannot be deleted"
 msgstr ""
 
-#: objects.py:6
+#: objects.py:26
 msgid "Expert system"
 msgstr ""
 
-#: objects.py:44
+#: objects.py:64
 msgid "Unnamed"
 msgstr ""
 
-#: objects.py:309
+#: objects.py:329
 msgid "Yes"
 msgstr ""
 
-#: objects.py:309
+#: objects.py:329
 msgid "No"
 msgstr ""
 
-#: objects.py:377
+#: objects.py:397
 msgid "Select a factor or goal"
 msgstr ""
 

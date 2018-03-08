@@ -2,10 +2,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: UNKNOWN 0.0.0\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2018-03-08 14:19+0500\n"
-"PO-Revision-Date: 2018-03-08 16:50+0000\n"
+"POT-Creation-Date: 2018-03-08 22:23+0500\n"
+"PO-Revision-Date: 2018-03-08 17:27+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: ru\n"
+"Language-Team: Russian\n"
 "Language: ru\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
@@ -17,147 +17,151 @@ msgstr ""
 "X-Loco-Parser: loco_parse_po\n"
 "X-Generator: Loco https://localise.biz/"
 
-#: Shell.py:29
+#: Shell.py:49
 msgid "Copy"
 msgstr "Копировать"
 
-#: Shell.py:30
+#: Shell.py:50
 msgid "Paste"
 msgstr "Вставить"
 
-#: Shell.py:91 factors_ui.py:132
+#: Shell.py:111 factors_ui.py:148
 msgid "Select a factor"
 msgstr "Выбрать фактор"
 
-#: Shell.py:92
+#: Shell.py:112
 msgid "Select a goal"
 msgstr "Выбрать цель"
 
-#: Shell.py:94
+#: Shell.py:114
 msgid "Add an extra goal"
 msgstr "Добавить дополнительную цель"
 
-#: Shell.py:102
+#: Shell.py:116
+msgid "Clear node"
+msgstr "Очистить узел"
+
+#: Shell.py:124
 msgid "Edit factor"
 msgstr "Редактировать фактор"
 
-#: Shell.py:102
+#: Shell.py:124
 msgid "Edit goal"
 msgstr "Редактировать цель"
 
-#: Shell.py:272
+#: Shell.py:304
 msgid "File"
 msgstr "Файл"
 
-#: Shell.py:273
+#: Shell.py:305
 msgid "New expert system"
 msgstr "Новая экспертная система"
 
-#: Shell.py:274
+#: Shell.py:306
 msgid "Open..."
 msgstr "Открыть..."
 
-#: Shell.py:275
+#: Shell.py:307
 msgid "Save"
 msgstr "Сохранить"
 
-#: Shell.py:276
+#: Shell.py:308
 msgid "Save as..."
 msgstr "Сохранить как..."
 
-#: Shell.py:277
+#: Shell.py:309
 msgid "Export the decision tree to PNG..."
 msgstr "Экспорт дерева решений в PNG..."
 
-#: Shell.py:278
+#: Shell.py:310
 msgid "Export the rules list..."
 msgstr "Экспорт списка правил..."
 
-#: Shell.py:279
+#: Shell.py:311
 msgid "Check the system"
 msgstr "Проверить систему"
 
-#: Shell.py:280
+#: Shell.py:312
 msgid "Run the system"
 msgstr "Запустить систему"
 
-#: Shell.py:281
+#: Shell.py:313
 msgid "About..."
 msgstr "О программе..."
 
-#: Shell.py:294
+#: Shell.py:326
 msgid "Exit"
 msgstr "Выход"
 
-#: Shell.py:296
+#: Shell.py:328
 msgid "Edit"
 msgstr "Редактирование"
 
-#: Shell.py:297
+#: Shell.py:329
 msgid "Undo"
 msgstr "Отменить"
 
-#: Shell.py:298
+#: Shell.py:330
 msgid "Redo"
 msgstr "Повторить"
 
-#: Shell.py:299
+#: Shell.py:331
 msgid "Goals..."
 msgstr "Цели..."
 
-#: Shell.py:300
+#: Shell.py:332
 msgid "Factors..."
 msgstr "Факторы..."
 
-#: Shell.py:301
+#: Shell.py:333
 msgid "Expert system description..."
 msgstr "Описание экспертной системы..."
 
-#: Shell.py:310
+#: Shell.py:342
 msgid "Help"
 msgstr "Справка"
 
-#: Shell.py:317
+#: Shell.py:349
 msgid "Toolbar"
 msgstr "Панель инструментов"
 
-#: Shell.py:327
+#: Shell.py:359
 #, python-format
 msgid "Save changes in expert system \"%s\"?"
 msgstr "Сохранить изменения в экспертной системе \"%s\"?"
 
-#: Shell.py:364
+#: Shell.py:396
 #, python-format
 msgid "An error occurred while opening file \"%s\""
 msgstr "Ошибка открытия файла \"%s\""
 
-#: Shell.py:372
+#: Shell.py:404
 msgid "Open File"
 msgstr "Открыть файл"
 
-#: Shell.py:380
+#: Shell.py:412
 #, python-format
 msgid "An error occurred while writing to file \"%s\""
 msgstr "Ошибка записи в файл \"%s\""
 
-#: Shell.py:390
+#: Shell.py:422
 msgid "Save to File"
 msgstr "Ошибка записи в файл \"%s\""
 
-#: Shell.py:398
+#: Shell.py:430
 msgid "Export to PNG"
 msgstr "Экспорт в PNG"
 
-#: Shell.py:411
+#: Shell.py:443
 msgid "There are errors in the expert system. Fix the errors and try again."
 msgstr ""
 "Экспертная система содержит ошибки. Устраните ошибки и попробуйте снова."
 
-#: Shell.py:417
+#: Shell.py:449
 msgid " AND "
 msgstr " И "
 
-#: Shell.py:419
+#: Shell.py:451
 #, python-format
 msgid ""
 "IF %s\n"
@@ -166,18 +170,18 @@ msgstr ""
 "ЕСЛИ %s\n"
 "ТО %s;"
 
-#: Shell.py:429
+#: Shell.py:461
 #, python-format
 msgid ""
 "Number of rules: %d\n"
 msgstr ""
 "Число правил: %d\n"
 
-#: Shell.py:430
+#: Shell.py:462
 msgid "Rules"
 msgstr "Правила"
 
-#: about_ui.py:14
+#: about_ui.py:29
 #, python-format
 msgid ""
 "<b>%s - An expert system shell</b><br/>Version %s\n"
@@ -185,8 +189,10 @@ msgid ""
 "    Copyright © 2018 Damir Akhmetzyanov (linesprower@gmail.com) \n"
 "    <br/>\n"
 "    <br/>\n"
-"    This software is free and distributed under the terms and conditions of\n"
-"    GNU GPL version 3.\n"
+"    Funduck ESS is free software: you can redistribute it and/or modify\n"
+"    it under the terms of the GNU General Public License as published by\n"
+"    the Free Software Foundation, either version 3 of the License, or\n"
+"    (at your option) any later version.\n"
 "    <br/>\n"
 "    <br/>\n"
 "    This program uses icons from the \n"
@@ -205,8 +211,10 @@ msgstr ""
 "    Copyright © 2018 Ахметзянов Дамир (linesprower@gmail.com) \n"
 "    <br/>\n"
 "    <br/>\n"
-"    Данный программный продукт является свободным программным обеспечением\n"
-"    и распространяется по лицензии GNU GPL версии 3.\n"
+"   Это свободная программа: вы можете перераспространять её и/или изменять\n"
+"   её на условиях Стандартной общественной лицензии GNU в том виде, в каком\n"
+"   она была опубликована Фондом свободного программного обеспечения; либо\n"
+"   версии 3 лицензии, либо (по вашему выбору) любой более поздней версии.\n"
 "    <br/>\n"
 "    <br/>\n"
 "    Данный программный продукт использует пиктограммы из набора \n"
@@ -220,214 +228,218 @@ msgstr ""
 "    с сайта <a href=\"www.flaticon.com\">www.flaticon.com</a> \n"
 "    "
 
-#: about_ui.py:33
+#: about_ui.py:50
 #, python-format
 msgid "About %s"
 msgstr "О программе %s"
 
-#: about_ui.py:44
+#: about_ui.py:61
 msgid "View license text"
 msgstr "Лицензионное соглашение"
 
-#: about_ui.py:49
+#: about_ui.py:66
 msgid "License Agreement"
 msgstr "Лицензионное соглашение"
 
-#: checker.py:18
+#: checker.py:33
 msgid "ES Check Results"
 msgstr "Результаты проверки системы"
 
-#: checker.py:57
+#: checker.py:72
 msgid "Incomplete node"
 msgstr "Незавершённый узел"
 
-#: checker.py:66
+#: checker.py:81
 #, python-format
 msgid "Factor \"%s\" is used more than once in the same branch"
 msgstr "Фактор \"%s\" используется более одного раза в одной ветке дерева"
 
-#: checker.py:78
+#: checker.py:93
 #, python-format
 msgid "Target \"%s\" is not used"
 msgstr "Цель \"%s\" не использована"
 
-#: checker.py:83
+#: checker.py:98
 #, python-format
 msgid "Factor \"%s\" is not used"
 msgstr "Фактор \"%s\" не использован"
 
-#: checker.py:86
+#: checker.py:101
 msgid "No problems detected"
 msgstr "Проблем не обнаружено"
 
-#: common.py:141
+#: common.py:155
 msgid "Delete"
 msgstr "Удалить"
 
-#: common.py:273
+#: common.py:287
 msgid "Close"
 msgstr "Закрыть"
 
-#: common.py:276
+#: common.py:290
 msgid "Cancel"
 msgstr "Отмена"
 
-#: description_ui.py:15
+#: description_ui.py:30
 msgid "Expert system description"
 msgstr "Описание экспертной системы"
 
-#: description_ui.py:16 factors_ui.py:43 goals_ui.py:30
+#: description_ui.py:31 factors_ui.py:57 goals_ui.py:45
 msgid "Name"
 msgstr "Название"
 
-#: description_ui.py:16 goals_ui.py:31
+#: description_ui.py:31 goals_ui.py:46
 msgid "Description"
 msgstr "Описание"
 
-#: description_ui.py:23
+#: description_ui.py:38
 msgid "Name cannot be empty"
 msgstr "Название не может быть пустым"
 
-#: es_runner.py:51
+#: es_runner.py:65
 msgid "Restart (F2)"
 msgstr "Начать сначала (F2)"
 
-#: es_runner.py:58
+#: es_runner.py:72
 msgid "Session is over"
 msgstr "Ceaнс завершён"
 
-#: es_runner.py:60
+#: es_runner.py:74
 msgid "Incomplete node reached"
 msgstr "Достигнут незавершённый узел"
 
-#: es_runner.py:65
+#: es_runner.py:79
 msgid "Use digit buttons on the keyboard to choose answers quickly"
 msgstr "Используйте цифры на клавиатуре для быстрого выбора ответов"
 
-#: es_runner.py:68
+#: es_runner.py:82
 msgid "Results"
 msgstr "Результат"
 
-#: factors_ui.py:15
+#: factors_ui.py:29
 msgid "Factor name cannot be empty"
 msgstr "Название фактора не может быть пустым"
 
-#: factors_ui.py:20
+#: factors_ui.py:34
 msgid "Factor with this name already exists"
 msgstr "Фактор с таким названием уже существует"
 
-#: factors_ui.py:25
+#: factors_ui.py:39
 msgid "Add a Factor"
 msgstr "Добавление фактора"
 
-#: factors_ui.py:25
+#: factors_ui.py:39
 msgid "Edit Factor"
 msgstr "Редактирование фактора"
 
-#: factors_ui.py:36
+#: factors_ui.py:50
 msgid "Values"
 msgstr "Значения"
 
-#: factors_ui.py:38
+#: factors_ui.py:52
 msgid "Binary"
 msgstr "Бинарный"
 
-#: factors_ui.py:39
+#: factors_ui.py:53
 msgid "Text"
 msgstr "Текстовый"
 
-#: factors_ui.py:44
+#: factors_ui.py:58
 msgid "Type"
 msgstr "Тип фактора"
 
-#: factors_ui.py:93
+#: factors_ui.py:107
 msgid "A factor should have at least two values"
 msgstr "Фактор должен иметь хотя бы два значения"
 
-#: factors_ui.py:132
+#: factors_ui.py:109
+msgid "All values must be different"
+msgstr "Все значения должны быть разными"
+
+#: factors_ui.py:148
 msgid "Factors"
 msgstr "Факторы"
 
-#: factors_ui.py:135
+#: factors_ui.py:151
 msgid "Add a factor (Ins)"
 msgstr "Добавить фактор (Ins)"
 
-#: factors_ui.py:136
+#: factors_ui.py:152
 msgid "Edit factor (Enter)"
 msgstr "Редактировать фактор (Enter)"
 
-#: factors_ui.py:137
+#: factors_ui.py:153
 msgid "Delete factor (Del)"
 msgstr "Удалить фактор (Del)"
 
-#: factors_ui.py:148
+#: factors_ui.py:164
 msgid "You should select a factor first"
 msgstr "Необходимо выбрать фактор"
 
-#: factors_ui.py:191
+#: factors_ui.py:207
 msgid "This factor is used in the tree and cannot be deleted"
 msgstr "Фактор используется в дереве и не может быть удалён"
 
-#: goals_ui.py:14
+#: goals_ui.py:29
 msgid "Goal name cannot be empty"
 msgstr "Название цели не может быть пустым"
 
-#: goals_ui.py:19
+#: goals_ui.py:34
 msgid "A goal with this name already exists"
 msgstr "Цель с таким названием уже существует"
 
-#: goals_ui.py:24
+#: goals_ui.py:39
 msgid "Add a Goal"
 msgstr "Добавление цели"
 
-#: goals_ui.py:24
+#: goals_ui.py:39
 msgid "Edit Goal"
 msgstr "Редактирование цели"
 
-#: goals_ui.py:58
+#: goals_ui.py:73
 msgid "Select a Goal"
 msgstr "Выбор цели"
 
-#: goals_ui.py:58
+#: goals_ui.py:73
 msgid "Goals"
 msgstr "Цели"
 
-#: goals_ui.py:61
+#: goals_ui.py:76
 msgid "Add a goal (Ins)"
 msgstr "Добавить цель (Ins)"
 
-#: goals_ui.py:62
+#: goals_ui.py:77
 msgid "Edit goal (Enter)"
 msgstr "Редактировать цель (Enter)"
 
-#: goals_ui.py:63
+#: goals_ui.py:78
 msgid "Delete goal (Del)"
 msgstr "Удалить цель (Del)"
 
-#: goals_ui.py:74
+#: goals_ui.py:89
 msgid "You should select a goal first"
 msgstr "Необходимо выбрать цель"
 
-#: goals_ui.py:117
+#: goals_ui.py:132
 msgid "This goal is used in the tree and cannot be deleted"
 msgstr "Цель используется в дереве и не может быть удалена"
 
-#: objects.py:6
+#: objects.py:26
 msgid "Expert system"
 msgstr "Экспертная система"
 
-#: objects.py:44
+#: objects.py:64
 msgid "Unnamed"
 msgstr "Без имени"
 
-#: objects.py:309
+#: objects.py:329
 msgid "Yes"
 msgstr "Да"
 
-#: objects.py:309
+#: objects.py:329
 msgid "No"
 msgstr "Нет"
 
-#: objects.py:377
+#: objects.py:397
 msgid "Select a factor or goal"
 msgstr "Выберите фактор или цель"
