@@ -36,6 +36,7 @@ setup(
     options={"py2exe":{"includes":["sip"]}},
     data_files=find_data_files('', '', [
         'LICENSE.txt',
-        'icons/*'
+        'icons/*',
+        'locale/*'
     ])
 )
