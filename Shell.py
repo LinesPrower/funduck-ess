@@ -471,7 +471,7 @@ class MainW(QtGui.QMainWindow):
         rules = []
         def gen(node, conds, ex_goals = []):
             if not node.children:
-                conds = _(' AND ').join('"%s" = "%s"' % c for c in conds) if conds else 'True'
+                conds = _('\n\tAND ').join('"%s" = "%s"' % c for c in conds) if conds else 'True'
                 result = ', '.join(ex_goals + [node.content.name])
                 rule = _('IF %s\nTHEN %s;') % (conds, result)
                 rules.append(rule)

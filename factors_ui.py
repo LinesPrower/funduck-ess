@@ -178,6 +178,8 @@ class FactorsDialog(cmn.Dialog):
             if g == cur_obj:
                 self.list.setCurrentItem(item)
         self.list.sortItems()
+        if self.list.currentItem():
+            self.list.scrollToItem(self.list.currentItem())
         
     def addFactor(self):
         d = FactorDialog()
