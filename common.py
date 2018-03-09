@@ -249,7 +249,7 @@ class Dialog(QtGui.QDialog):
         self.wndname = wndname
         self.is_modal = is_modal
         self.setWindowTitle(title)        
-        self.setWindowIcon(QtGui.QIcon(_rootdir + '/icons/duckling.png'))
+        self.setWindowIcon(GetIcon('icons/duckling.png'))
         self.state_saver = StateSaver(wndname, appname)
         self.old_cur_wnd = None
     
