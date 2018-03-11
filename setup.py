@@ -63,6 +63,6 @@ setup(
         'LICENSE.txt',
         'COPYING',
         'icons/*',
-        'locale/*'
+        'demo/books.es'
     ])
 )
