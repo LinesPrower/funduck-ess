@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: UNKNOWN 0.0.0\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2018-03-08 22:23+0500\n"
+"POT-Creation-Date: 2018-03-09 21:32+0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,162 +17,164 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.5.3\n"
 
-#: Shell.py:49
+#: Shell.py:50
 msgid "Copy"
 msgstr ""
 
-#: Shell.py:50
+#: Shell.py:51
 msgid "Paste"
 msgstr ""
 
-#: Shell.py:111 factors_ui.py:148
+#: Shell.py:112 factors_ui.py:148
 msgid "Select a factor"
 msgstr ""
 
-#: Shell.py:112
+#: Shell.py:113
 msgid "Select a goal"
 msgstr ""
 
-#: Shell.py:114
+#: Shell.py:115
 msgid "Add an extra goal"
 msgstr ""
 
-#: Shell.py:116
+#: Shell.py:117
 msgid "Clear node"
 msgstr ""
 
-#: Shell.py:124
+#: Shell.py:125
 msgid "Edit factor"
 msgstr ""
 
-#: Shell.py:124
+#: Shell.py:125
 msgid "Edit goal"
 msgstr ""
 
-#: Shell.py:304
+#: Shell.py:329
 msgid "File"
 msgstr ""
 
-#: Shell.py:305
+#: Shell.py:330
 msgid "New expert system"
 msgstr ""
 
-#: Shell.py:306
+#: Shell.py:331
 msgid "Open..."
 msgstr ""
 
-#: Shell.py:307
+#: Shell.py:332
 msgid "Save"
 msgstr ""
 
-#: Shell.py:308
+#: Shell.py:333
 msgid "Save as..."
 msgstr ""
 
-#: Shell.py:309
+#: Shell.py:334
 msgid "Export the decision tree to PNG..."
 msgstr ""
 
-#: Shell.py:310
+#: Shell.py:335
 msgid "Export the rules list..."
 msgstr ""
 
-#: Shell.py:311
+#: Shell.py:336
 msgid "Check the system"
 msgstr ""
 
-#: Shell.py:312
+#: Shell.py:337
 msgid "Run the system"
 msgstr ""
 
-#: Shell.py:313
+#: Shell.py:338
 msgid "About..."
 msgstr ""
 
-#: Shell.py:326
+#: Shell.py:351
 msgid "Exit"
 msgstr ""
 
-#: Shell.py:328
+#: Shell.py:353
 msgid "Edit"
 msgstr ""
 
-#: Shell.py:329
+#: Shell.py:354
 msgid "Undo"
 msgstr ""
 
-#: Shell.py:330
+#: Shell.py:355
 msgid "Redo"
 msgstr ""
 
-#: Shell.py:331
+#: Shell.py:356
 msgid "Goals..."
 msgstr ""
 
-#: Shell.py:332
+#: Shell.py:357
 msgid "Factors..."
 msgstr ""
 
-#: Shell.py:333
+#: Shell.py:358
 msgid "Expert system description..."
 msgstr ""
 
-#: Shell.py:342
+#: Shell.py:367
 msgid "Help"
 msgstr ""
 
-#: Shell.py:349
+#: Shell.py:374
 msgid "Toolbar"
 msgstr ""
 
-#: Shell.py:359
+#: Shell.py:384
 #, python-format
 msgid "Save changes in expert system \"%s\"?"
 msgstr ""
 
-#: Shell.py:396
+#: Shell.py:421
 #, python-format
 msgid "An error occurred while opening file \"%s\""
 msgstr ""
 
-#: Shell.py:404
+#: Shell.py:429
 msgid "Open File"
 msgstr ""
 
-#: Shell.py:412
+#: Shell.py:437
 #, python-format
 msgid "An error occurred while writing to file \"%s\""
 msgstr ""
 
-#: Shell.py:422
+#: Shell.py:447
 msgid "Save to File"
 msgstr ""
 
-#: Shell.py:430
+#: Shell.py:455
 msgid "Export to PNG"
 msgstr ""
 
-#: Shell.py:443
+#: Shell.py:468
 msgid "There are errors in the expert system. Fix the errors and try again."
 msgstr ""
 
-#: Shell.py:449
-msgid " AND "
+#: Shell.py:474
+msgid ""
+"\n"
+"\tAND "
 msgstr ""
 
-#: Shell.py:451
+#: Shell.py:476
 #, python-format
 msgid ""
 "IF %s\n"
 "THEN %s;"
 msgstr ""
 
-#: Shell.py:461
+#: Shell.py:486
 #, python-format
 msgid "Number of rules: %d\n"
 msgstr ""
 
-#: Shell.py:462
+#: Shell.py:487
 msgid "Rules"
 msgstr ""
 
@@ -351,7 +353,7 @@ msgstr ""
 msgid "You should select a factor first"
 msgstr ""
 
-#: factors_ui.py:207
+#: factors_ui.py:209
 msgid "This factor is used in the tree and cannot be deleted"
 msgstr ""
 
@@ -371,31 +373,31 @@ msgstr ""
 msgid "Edit Goal"
 msgstr ""
 
-#: goals_ui.py:73
+#: goals_ui.py:77
 msgid "Select a Goal"
 msgstr ""
 
-#: goals_ui.py:73
+#: goals_ui.py:77
 msgid "Goals"
 msgstr ""
 
-#: goals_ui.py:76
+#: goals_ui.py:80
 msgid "Add a goal (Ins)"
 msgstr ""
 
-#: goals_ui.py:77
+#: goals_ui.py:81
 msgid "Edit goal (Enter)"
 msgstr ""
 
-#: goals_ui.py:78
+#: goals_ui.py:82
 msgid "Delete goal (Del)"
 msgstr ""
 
-#: goals_ui.py:89
+#: goals_ui.py:93
 msgid "You should select a goal first"
 msgstr ""
 
-#: goals_ui.py:132
+#: goals_ui.py:138
 msgid "This goal is used in the tree and cannot be deleted"
 msgstr ""
 
